@@ -97,7 +97,7 @@ using MudBlazor;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 28 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Shared\NavMenu.razor"
+#line 33 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Shared\NavMenu.razor"
        
     private bool collapseNavMenu = true;
 

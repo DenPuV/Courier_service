@@ -89,6 +89,13 @@ using MudBlazor;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 2 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Shared\MainLayout.razor"
+using Courier_service.Components;
+
+#line default
+#line hidden
+#nullable disable
     public partial class MainLayout : LayoutComponentBase
     {
         #pragma warning disable 1998

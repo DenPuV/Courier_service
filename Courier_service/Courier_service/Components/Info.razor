@@ -1,0 +1,15 @@
+﻿@page "/settings"
+@using Courier_service.Models
+
+<AuthorizeView>
+	<Authorized>
+		<h3>@context.User.Identity.Name</h3>
+	</Authorized>
+	<NotAuthorized>
+		<h3>Log in first!</h3>
+	</NotAuthorized>
+</AuthorizeView>
+
+@code {
+
+}
