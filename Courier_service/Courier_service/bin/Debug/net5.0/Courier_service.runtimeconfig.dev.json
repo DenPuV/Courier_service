@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\DenpUV\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\DenpUV\\.nuget\\packages"
+    ]
+  }
+}
