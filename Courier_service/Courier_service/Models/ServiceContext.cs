@@ -8,14 +8,37 @@ namespace Courier_service.Models
 {
     public class ServiceContext : DbContext
     {
-        public DbSet<Client> Clinets { get; set; }
-        public ServiceContext()
+        public ServiceContext(DbContextOptions<ServiceContext> options):base(options)
         {
-            Database.EnsureCreated();
+            
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<AspNetUser> AspNetUsers { get; set; }
+    }
+
+    public class DatabaseService
+    {
+        protected readonly ServiceContext _dbcontext;
+
+        public DatabaseService(ServiceContext _db)
         {
-            optionsBuilder.UseNpgsql("DefaultConnection");
+            _dbcontext = _db;
+        }
+
+        public List<Client> ClientData()
+        {
+            try { return _dbcontext.Clients.ToList(); }
+            catch { return null; }
+        }
+
+        public List<AspNetUser> AspNetUsersData()
+        {
+            return _dbcontext.AspNetUsers.ToList();
+        }
+
+        public async Task<List<Client>> ClientDataAsync()
+        {
+            return await Task.Run(() => ClientData());
         }
     }
 }

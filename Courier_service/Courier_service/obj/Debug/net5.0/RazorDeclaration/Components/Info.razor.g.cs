@@ -97,7 +97,7 @@ using Courier_service.Models;
 #line hidden
 #nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/settings")]
-    public partial class Info : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class Info : OwningComponentBase<DatabaseService>
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -105,11 +105,16 @@ using Courier_service.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 14 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Components\Info.razor"
+#line 39 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Components\Info.razor"
        
-	public static ServiceContext sc = new ServiceContext();
-	public static Client c = sc.Clinets.ToList()[0];
-	public string fname = c.FName;
+	public System.Collections.Generic.IList<Client> clients;
+
+	protected override async void OnInitialized()
+	{
+		clients = await Service.ClientDataAsync();
+		try { this.StateHasChanged(); }
+		catch { }
+	}
 
 #line default
 #line hidden

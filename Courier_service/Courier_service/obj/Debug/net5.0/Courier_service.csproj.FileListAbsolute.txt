@@ -196,3 +196,13 @@ D:\Курьерская служба\Courier_service\Courier_service\Courier_ser
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\RazorDeclaration\Components\Info.razor.g.cs
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\Razor\Components\Info.razor.g.cs
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\bin\Debug\net5.0\EntityFramework.SqlServer.dll
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\bin\Debug\net5.0\EntityFramework.dll
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\bin\Debug\net5.0\EntityFramework6.Npgsql.dll
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\bin\Debug\net5.0\System.CodeDom.dll
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\bin\Debug\net5.0\System.Data.SqlClient.dll
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\bin\Debug\net5.0\runtimes\win-arm64\native\sni.dll
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\bin\Debug\net5.0\runtimes\win-x64\native\sni.dll
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\bin\Debug\net5.0\runtimes\win-x86\native\sni.dll
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
