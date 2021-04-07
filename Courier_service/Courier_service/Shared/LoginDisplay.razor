@@ -2,7 +2,7 @@
     <Authorized>
         <MudLink Color="Color.Secondary" href="Identity/Account/Manage">Hello, @context.User.Identity.Name! </MudLink>
         <form method="post" action="Identity/Account/LogOut">
-            <MudButton Variant="Variant.Text" type="submit" EndIcon="@Icons.Filled.Logout" Color="Color.Secondary">Log out</MudButton>
+            <MudButton Variant="Variant.Text" ButtonType="ButtonType.Submit" EndIcon="@Icons.Filled.Logout" Color="Color.Secondary">Log out</MudButton>
         </form>
     </Authorized>
 	<NotAuthorized>

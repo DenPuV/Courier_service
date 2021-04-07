@@ -206,3 +206,5 @@ D:\Курьерская служба\Courier_service\Courier_service\Courier_ser
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\bin\Debug\net5.0\runtimes\win-x86\native\sni.dll
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\RazorDeclaration\Components\NewClientComponent.razor.g.cs
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\Razor\Components\NewClientComponent.razor.g.cs

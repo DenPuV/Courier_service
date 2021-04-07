@@ -13,7 +13,6 @@ namespace Courier_service.Models
             
         }
         public DbSet<Client> Clients { get; set; }
-        public DbSet<AspNetUser> AspNetUsers { get; set; }
     }
 
     public class DatabaseService
@@ -24,21 +23,40 @@ namespace Courier_service.Models
         {
             _dbcontext = _db;
         }
-
         public List<Client> ClientData()
         {
             try { return _dbcontext.Clients.ToList(); }
             catch { return null; }
         }
-
-        public List<AspNetUser> AspNetUsersData()
-        {
-            return _dbcontext.AspNetUsers.ToList();
-        }
-
         public async Task<List<Client>> ClientDataAsync()
         {
             return await Task.Run(() => ClientData());
+        }
+
+        public void AddClient(Client client)
+        {
+            _dbcontext.Clients.Add(client);
+            SaveData();
+        }
+
+        public async void SaveData()
+        {
+            try { await _dbcontext.SaveChangesAsync(); }
+            catch { }
+        }
+
+        public void UpdateClient(Client client) 
+        {
+            try
+            {
+                Client cl = _dbcontext.Clients.Find(client.Id);
+                if (cl != null)
+                {
+                    _dbcontext.Entry<Client>(cl).CurrentValues.SetValues(client);
+                    _dbcontext.SaveChanges();
+                }
+            }
+            catch { }
         }
     }
 }

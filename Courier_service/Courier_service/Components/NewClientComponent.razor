@@ -1,0 +1,84 @@
+﻿@using Courier_service.Models
+@using Microsoft.AspNetCore.Components.Web
+
+@if (downloading)
+{
+	<MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="400px" Height="400px" />
+}
+else
+{
+	<div style="max-width: 400px;">
+		<MudCard>
+			<MudCardContent>
+				<MudForm>
+					<MudTextField Disabled="@textDis" @onchange="@Varify" @bind-Value="FNameTextValue" T="string" Label="First name" Required="true" RequiredError="First name is required!" />
+					<MudTextField Disabled="@textDis" @onchange="@Varify" @bind-Value="SNameTextValue" T="string" Label="Second name" Required="true" RequiredError="Second name is required!" />
+					<MudTextField Disabled="@textDis" @onchange="@Varify" @bind-Value="PatronymicTextValue" T="string" Label="Patronymic" Required="false" />
+					<br>
+
+				</MudForm>
+			</MudCardContent>
+			<MudCardActions>
+				<MudButton Disabled="@textDis" @onclick="@Varify" Variant="Variant.Filled" Color="Color.Secondary" Class="ml-auto">Varify</MudButton>
+				<MudButton @onclick="@StoreData" Disabled="@(!varified)" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Store data</MudButton>
+			</MudCardActions>
+		</MudCard>
+	</div>
+}
+
+
+@code {
+	[Parameter]
+	public EventCallback<Client> OnClickCallback { get; set; }
+
+	[Parameter]
+	public Client Client { get; set; } = null;
+
+	public bool varified = false;
+	public bool textDis = false;
+	public bool downloading = true;
+
+	public string FNameTextValue { get; set; } = "";
+	public string SNameTextValue { get; set; } = "";
+	public string PatronymicTextValue { get; set; } = "";
+
+	public void Varify()
+	{
+		if (FNameTextValue != "" && SNameTextValue != "") varified = true;
+	}
+
+	public void StoreData()
+	{
+		Client newClient = null;
+		if (Client != null) newClient = Client;
+		else
+		{
+			newClient = new Client()
+			{
+				Deleted = false,
+				AspName = null
+			};
+		}
+		newClient.FName = FNameTextValue;
+		newClient.SName = SNameTextValue;
+		newClient.Patronymic = PatronymicTextValue;
+
+		if (varified)
+		{
+			textDis = true;
+			OnClickCallback.InvokeAsync(newClient);
+		}
+	}
+
+	protected override void OnInitialized()
+	{
+		if (Client != null)
+		{
+			FNameTextValue = Client.FName;
+			SNameTextValue = Client.SName;
+			PatronymicTextValue = Client.Patronymic;
+			downloading = false;
+			this.StateHasChanged();
+		}
+	}
+}

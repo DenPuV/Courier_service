@@ -83,21 +83,20 @@ using MudBlazor;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Components\Info.razor"
+#line 1 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Components\NewClientComponent.razor"
 using Courier_service.Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Components\Info.razor"
+#line 2 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Components\NewClientComponent.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/settings")]
-    public partial class Info : OwningComponentBase<DatabaseService>
+    public partial class NewClientComponent : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -105,45 +104,60 @@ using Microsoft.AspNetCore.Components.Web;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 31 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Components\Info.razor"
+#line 30 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Components\NewClientComponent.razor"
        
-	[CascadingParameter]
-	private Task<AuthenticationState> authenticationStateTask { get; set; }
+	[Parameter]
+	public EventCallback<Client> OnClickCallback { get; set; }
 
-	public System.Collections.Generic.IList<Client> clients;
-	public Client CurrentClient = null;
-	public string UserName = null;
+	[Parameter]
+	public Client Client { get; set; } = null;
 
-	protected override async void OnInitialized()
+	public bool varified = false;
+	public bool textDis = false;
+	public bool downloading = true;
+
+	public string FNameTextValue { get; set; } = "";
+	public string SNameTextValue { get; set; } = "";
+	public string PatronymicTextValue { get; set; } = "";
+
+	public void Varify()
 	{
-		var authState = await authenticationStateTask;
-		var user = authState.User;
-		UserName = user.Identity.Name;
-
-		clients = await Service.ClientDataAsync();
-		var _c = from t in clients
-				 where t.AspName == UserName
-				 select t;
-
-		CurrentClient = _c.FirstOrDefault();
-
-
-		try { this.StateHasChanged(); }
-		catch { }
+		if (FNameTextValue != "" && SNameTextValue != "") varified = true;
 	}
 
-	private void AddClient(Client client)
+	public void StoreData()
 	{
-		client.AspName = UserName;
-		Service.AddClient(client);
-		this.StateHasChanged();
+		Client newClient = null;
+		if (Client != null) newClient = Client;
+		else
+		{
+			newClient = new Client()
+			{
+				Deleted = false,
+				AspName = null
+			};
+		}
+		newClient.FName = FNameTextValue;
+		newClient.SName = SNameTextValue;
+		newClient.Patronymic = PatronymicTextValue;
+
+		if (varified)
+		{
+			textDis = true;
+			OnClickCallback.InvokeAsync(newClient);
+		}
 	}
 
-	private void UpdateClient(Client client)
+	protected override void OnInitialized()
 	{
-		CurrentClient = client;
-		Service.UpdateClient(client);
-		this.StateHasChanged();
+		if (Client != null)
+		{
+			FNameTextValue = Client.FName;
+			SNameTextValue = Client.SName;
+			PatronymicTextValue = Client.Patronymic;
+			downloading = false;
+			this.StateHasChanged();
+		}
 	}
 
 #line default
