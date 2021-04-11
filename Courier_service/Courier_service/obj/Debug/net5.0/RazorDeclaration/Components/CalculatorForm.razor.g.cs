@@ -89,7 +89,14 @@ using MudBlazor;
 #line default
 #line hidden
 #nullable disable
-    public partial class CalculatorForm : Microsoft.AspNetCore.Components.ComponentBase
+#nullable restore
+#line 1 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Components\CalculatorForm.razor"
+using Courier_service.Services.LocationService;
+
+#line default
+#line hidden
+#nullable disable
+    public partial class CalculatorForm : Calculator
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)

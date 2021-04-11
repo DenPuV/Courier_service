@@ -1,11 +1,28 @@
-﻿<MudCard>
+﻿@using Courier_service.Services.LocationService
+
+
+
+@inherits Calculator
+
+<MudCard>
 	<MudCardContent>
 		<MudForm>
-			<MudTextField T="string" Label="SendAdress" Required="true" RequiredError="Sending adress is required!" />
-			<MudTextField T="string" Label="RecAdress" Required="true" RequiredError="Recieving adress is required!" />
+			<MudTextField @onfocusout="validate" @bind-Value="@SendAddress" T="string" Label="SendAdress" Required="true" RequiredError="Sending adress is required!" />
+			<MudTextField @onfocusout="validate" @bind-Value="@RecAddress" T="string" Label="RecAdress" Required="true" RequiredError="Recieving adress is required!" />
 		</MudForm>
 	</MudCardContent>
 	<MudCardActions>
-		<MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="true" Class="ml-auto" >Calculate</MudButton>
+		@if (distance != "")
+		{
+			<MudText>Расстояние: @distance м.</MudText>
+		}
+		<MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@invalid" Class="ml-auto" @onclick="CalculateDistance">Calculate</MudButton>
 	</MudCardActions>
+	@if (mapVisible && mapReady)
+	{
+		<div style="height: 350px; width: 350px;">
+			<BlazorLeaflet.LeafletMap Map="@_map" />
+		</div>
+	}
 </MudCard>
+

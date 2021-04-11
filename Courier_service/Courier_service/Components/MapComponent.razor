@@ -1,0 +1,20 @@
+﻿@using BlazorLeaflet
+@using BlazorLeaflet.Models
+
+@inherits MapComponentCode
+
+@if (!initialized)
+{<MudSkeleton Width="@(Width + "px")" Height="@(Height + "px")" />}
+else
+{
+	<div style="height: @(Height)px; width: @(Width)px;">
+		<LeafletMap Map="@Map" />
+	</div>
+}
+
+@code{
+	[Parameter]
+	public int Height { get; set; } = 500;
+	[Parameter]
+	public int Width { get; set; } = 500;
+}

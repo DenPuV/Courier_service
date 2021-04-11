@@ -96,6 +96,13 @@ using Microsoft.AspNetCore.Components.Web;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 5 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Components\Info.razor"
+           [Authorize(Roles = "Client")]
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/settings")]
     public partial class Info : OwningComponentBase<DatabaseService>
     {
@@ -105,7 +112,7 @@ using Microsoft.AspNetCore.Components.Web;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 31 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Components\Info.razor"
+#line 32 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Components\Info.razor"
        
 	[CascadingParameter]
 	private Task<AuthenticationState> authenticationStateTask { get; set; }

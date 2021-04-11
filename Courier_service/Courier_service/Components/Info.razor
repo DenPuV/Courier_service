@@ -2,6 +2,7 @@
 @using Courier_service.Models
 @using Microsoft.AspNetCore.Components.Web
 @inherits OwningComponentBase<DatabaseService>
+@attribute [Authorize(Roles = "Client")]
 
 <AuthorizeView>
 	<Authorized>

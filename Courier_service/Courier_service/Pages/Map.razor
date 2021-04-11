@@ -1,0 +1,16 @@
+﻿@page "/map"
+
+@using Courier_service.Components
+@using Courier_service.Services.LocationService
+@using BlazorLeaflet
+
+
+
+
+@code{
+	[Inject]
+	private IJSRuntime jsRuntime { get; set; }
+	[Inject]
+	private IHttpClientFactory clientFactory { get; set; }
+
+}

@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Courier_service.Pages
+namespace Courier_service.Components
 {
     #line hidden
     using System;
@@ -90,14 +90,20 @@ using MudBlazor;
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\FetchData.razor"
-using Courier_service.Data;
+#line 1 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Components\MapComponent.razor"
+using BlazorLeaflet;
 
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/fetchdata")]
-    public partial class FetchData : Microsoft.AspNetCore.Components.ComponentBase
+#nullable restore
+#line 2 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Components\MapComponent.razor"
+using BlazorLeaflet.Models;
+
+#line default
+#line hidden
+#nullable disable
+    public partial class MapComponent : MapComponentCode
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -105,19 +111,16 @@ using Courier_service.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 39 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\FetchData.razor"
-       
-    private WeatherForecast[] forecasts;
-
-    protected override async Task OnInitializedAsync()
-    {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
-    }
+#line 15 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Components\MapComponent.razor"
+      
+	[Parameter]
+	public int Height { get; set; } = 500;
+	[Parameter]
+	public int Width { get; set; } = 500;
 
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private WeatherForecastService ForecastService { get; set; }
     }
 }
 #pragma warning restore 1591

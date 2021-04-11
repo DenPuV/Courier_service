@@ -65,7 +65,6 @@ D:\Курьерская служба\Courier_service\Courier_service\Courier_ser
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\Courier_service.RazorComponent.input.cache
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\RazorDeclaration\App.razor.g.cs
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\RazorDeclaration\Pages\Counter.razor.g.cs
-D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\RazorDeclaration\Pages\FetchData.razor.g.cs
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\RazorDeclaration\Pages\Index.razor.g.cs
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\RazorDeclaration\Shared\LoginDisplay.razor.g.cs
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\RazorDeclaration\Shared\SurveyPrompt.razor.g.cs
@@ -79,7 +78,6 @@ D:\Курьерская служба\Courier_service\Courier_service\Courier_ser
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\Courier_service.RazorCoreGenerate.cache
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\Razor\App.razor.g.cs
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\Razor\Pages\Counter.razor.g.cs
-D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\Razor\Pages\FetchData.razor.g.cs
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\Razor\Pages\Index.razor.g.cs
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\Razor\Shared\LoginDisplay.razor.g.cs
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\Razor\Shared\SurveyPrompt.razor.g.cs
@@ -208,3 +206,10 @@ D:\Курьерская служба\Courier_service\Courier_service\Courier_ser
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\RazorDeclaration\Components\NewClientComponent.razor.g.cs
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\Razor\Components\NewClientComponent.razor.g.cs
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\bin\Debug\net5.0\BlazorLeaflet.dll
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\RazorDeclaration\Components\MapComponent.razor.g.cs
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\RazorDeclaration\Pages\Map.razor.g.cs
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\Razor\Components\MapComponent.razor.g.cs
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\Razor\Pages\Map.razor.g.cs
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\bin\Debug\net5.0\GeoCoordinate.NetCore.dll
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\bin\Debug\net5.0\BrowserInterop.dll
