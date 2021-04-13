@@ -1,8 +1,12 @@
 ﻿@using Courier_service.Services.LocationService
+@using BlazorLeaflet
+@using BlazorLeaflet.Models;
 
-
+@inject IJSRuntime _jsRuntime
+@inject IHttpClientFactory _clientFactory
 
 @inherits Calculator
+
 
 <MudCard>
 	<MudCardContent>
@@ -12,17 +16,46 @@
 		</MudForm>
 	</MudCardContent>
 	<MudCardActions>
-		@if (distance != "")
+		@if (distance == 0 && downloading)
 		{
-			<MudText>Расстояние: @distance м.</MudText>
+			<MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+		}
+		else if (distance > 0 && !downloading)
+		{
+			<MudText>Сумма: @((distance * 0.25).ToString("N0")) рублей</MudText>
 		}
 		<MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@invalid" Class="ml-auto" @onclick="CalculateDistance">Calculate</MudButton>
 	</MudCardActions>
 	@if (mapVisible && mapReady)
 	{
-		<div style="height: 350px; width: 350px;">
+		<div style="height: 400px; width: 100%;">
 			<BlazorLeaflet.LeafletMap Map="@_map" />
 		</div>
 	}
 </MudCard>
 
+@code{
+	[Inject]
+	ISnackbar snackbar { get; set; }
+
+	public void ShowErrorSnackBar(string message)
+	{
+		snackbar.Add(message, Severity.Error);
+	}
+
+	protected override void OnInitialized()
+	{
+		locationProvider = new LocationProvider(_clientFactory);
+		_map = new Map(_jsRuntime);
+		_map.OnInitialized += () =>
+		{
+			_mapController = new MapController(_jsRuntime, _clientFactory, _map);
+			mapReady = true;
+		};
+		_map.Center = new LatLng(58.6035f, 49.668f);//58.6035, 49.668
+		_map.Zoom = 8; _map.MinZoom = 8;
+		_map.MaxBounds = Tuple.Create<LatLng, LatLng>(new LatLng(58.6784f, 49.4508f), new LatLng(58.545f, 49.8065f));//58.6784, 49.4508 - 58.54, 49.8065
+		_map.RaiseOnInitialized();
+		WrongAddress += (str) => { ShowErrorSnackBar(str); };
+	}
+}

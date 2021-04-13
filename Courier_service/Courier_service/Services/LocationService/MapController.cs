@@ -147,7 +147,6 @@ namespace Courier_service.Services.LocationService
         {
             string pathId = StringHelper.GetRandomString(10);
             polyLines.Add(pathId);
-
             await Task.Run(() =>
             {
                 _jsRuntime.InvokeVoidAsync("addPolyLineAndBound", new object[] { _map.Id.ToString(), path, pathId, content });
@@ -162,15 +161,17 @@ namespace Courier_service.Services.LocationService
             }
             markers.Clear();
         }
+        public void deleteAllPolylines()
+        {
+            foreach (string p in polyLines)
+            {
+                _jsRuntime.InvokeVoidAsync("removePolyline", new object[] { p, _map.Id });
+            }
+        }
 
         public Map GetMap()
         {
             return _map;
-        }
-
-        public void OnMouseClick(MouseEvent e)
-        {
-            AddMarkerAsync(new Marker(e.LatLng));
         }
     }
 }

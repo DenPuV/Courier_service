@@ -96,6 +96,20 @@ using Courier_service.Services.LocationService;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 2 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Components\CalculatorForm.razor"
+using BlazorLeaflet;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Components\CalculatorForm.razor"
+using BlazorLeaflet.Models;
+
+#line default
+#line hidden
+#nullable disable
     public partial class CalculatorForm : Calculator
     {
         #pragma warning disable 1998
@@ -103,6 +117,38 @@ using Courier_service.Services.LocationService;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 37 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Components\CalculatorForm.razor"
+      
+	[Inject]
+	ISnackbar snackbar { get; set; }
+
+	public void ShowErrorSnackBar(string message)
+	{
+		snackbar.Add(message, Severity.Error);
+	}
+
+	protected override void OnInitialized()
+	{
+		locationProvider = new LocationProvider(_clientFactory);
+		_map = new Map(_jsRuntime);
+		_map.OnInitialized += () =>
+		{
+			_mapController = new MapController(_jsRuntime, _clientFactory, _map);
+			mapReady = true;
+		};
+		_map.Center = new LatLng(58.6035f, 49.668f);//58.6035, 49.668
+		_map.Zoom = 8; _map.MinZoom = 8;
+		_map.MaxBounds = Tuple.Create<LatLng, LatLng>(new LatLng(58.6784f, 49.4508f), new LatLng(58.545f, 49.8065f));//58.6784, 49.4508 - 58.54, 49.8065
+		_map.RaiseOnInitialized();
+		WrongAddress += (str) => { ShowErrorSnackBar(str); };
+	}
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IHttpClientFactory _clientFactory { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime _jsRuntime { get; set; }
     }
 }
 #pragma warning restore 1591

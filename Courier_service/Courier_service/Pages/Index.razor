@@ -1,7 +1,11 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+<AuthorizeView Roles="Client, Courier">
+	<Authorized>
+		<h1>Hello @context.User.Identity.Name</h1>
+	</Authorized>
+	<NotAuthorized>
+		<h1>Enter all client data to proceed!</h1>
+		<MudLink Color="Color.Info" href="Identity/Account/Manage">User settings</MudLink>
+	</NotAuthorized>
+</AuthorizeView>

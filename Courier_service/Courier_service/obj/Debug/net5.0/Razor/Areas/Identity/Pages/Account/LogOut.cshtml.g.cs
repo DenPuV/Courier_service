@@ -13,6 +13,27 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
 #nullable restore
+#line 2 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Areas\Identity\Pages\_ViewImports.cshtml"
+using Courier_service.Areas.Identity;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Areas\Identity\Pages\_ViewImports.cshtml"
+using Courier_service.Areas.Identity.Pages;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 1 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Areas\Identity\Pages\Account\_ViewImports.cshtml"
+using Courier_service.Areas.Identity.Pages.Account;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 2 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Areas\Identity\Pages\Account\LogOut.cshtml"
 using Microsoft.AspNetCore.Identity;
 
@@ -27,6 +48,8 @@ using Microsoft.AspNetCore.Identity;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"580e87faa4f26b07c32280b4a4a19c3f61b16786", @"/Areas/Identity/Pages/Account/LogOut.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f45916deab8c905adb896099cc57a1977baac606", @"/Areas/Identity/Pages/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"8c6b0acd8097921dc9ccf632658e6e0e9e828da2", @"/Areas/Identity/Pages/Account/_ViewImports.cshtml")]
     public class Areas_Identity_Pages_Account_LogOut : global::Microsoft.AspNetCore.Mvc.RazorPages.Page
     {
         #pragma warning disable 1998

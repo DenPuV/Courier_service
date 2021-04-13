@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Metadata;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -9,9 +10,21 @@ namespace Courier_service.Models
     public class ServiceContext : DbContext
     {
         public ServiceContext(DbContextOptions<ServiceContext> options):base(options)
+        {   
+        }
+        public ServiceContext()
         {
             
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=Courier_service;User Id=postgres;Password=230798");
+            }
+        }
+
         public DbSet<Client> Clients { get; set; }
     }
 
@@ -36,27 +49,24 @@ namespace Courier_service.Models
         public void AddClient(Client client)
         {
             _dbcontext.Clients.Add(client);
-            SaveData();
         }
 
-        public async void SaveData()
+        public void SaveData()
         {
-            try { await _dbcontext.SaveChangesAsync(); }
-            catch { }
+            try
+            {
+            _dbcontext.SaveChanges(); 
+            }
+            catch(Exception ex) { throw new Exception(ex.Message); }
         }
 
         public void UpdateClient(Client client) 
         {
-            try
-            {
                 Client cl = _dbcontext.Clients.Find(client.Id);
                 if (cl != null)
                 {
                     _dbcontext.Entry<Client>(cl).CurrentValues.SetValues(client);
-                    _dbcontext.SaveChanges();
                 }
-            }
-            catch { }
         }
     }
 }

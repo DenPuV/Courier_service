@@ -1,6 +1,6 @@
 ﻿<StaticWebAssets Version="1.0">
   <ContentRoot BasePath="/" Path="D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\scopedcss\bundle\" />
-  <ContentRoot BasePath="/Identity" Path="C:\Users\DenpUV\.nuget\packages\microsoft.aspnetcore.identity.ui\5.0.5\staticwebassets\V4\" />
+  <ContentRoot BasePath="/Identity" Path="C:\Users\DenpUV\.nuget\packages\microsoft.aspnetcore.identity.ui\5.0.4\staticwebassets\V4\" />
   <ContentRoot BasePath="_content/BrowserInterop" Path="C:\Users\DenpUV\.nuget\packages\browserinterop\1.1.2\build\..\staticwebassets\" />
   <ContentRoot BasePath="_content/MudBlazor" Path="C:\Users\DenpUV\.nuget\packages\mudblazor\5.0.7\build\..\staticwebassets\" />
 </StaticWebAssets>

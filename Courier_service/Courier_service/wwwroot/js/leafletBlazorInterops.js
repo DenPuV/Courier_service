@@ -458,16 +458,18 @@ function connectInteractionEvents(interactiveObject, objectReference) {
 
 // #endregion
 
-function addPolyLine(mapId, latlngs) {
+function addPolyLine(mapId, latlngs, pathId) {
     latlngs = JSON.parse(latlngs);
-    return L.polyline(latlngs, { color: 'blue' }).addTo(maps[mapId]);
+    polyLine = L.polyline(latlngs, { color: 'blue' });
+    polylines[pathId] = polyLine;
+    polyLine.addTo(maps[mapId]);
+    return polyLine;
 }
 
 
  
 function addPolyLineAndBound(mapId, latlngs, pathId, content) {
-    var polyLine = addPolyLine(mapId, latlngs);
-    polylines[pathId] = polyLine;
+    var polyLine = addPolyLine(mapId, latlngs, pathId);
     var popup = L.popup().setContent('<p>' + content + '</p>');
     polyLine.bindPopup(popup).openPopup();
     maps[mapId].fitBounds(polyLine.getBounds());
@@ -475,4 +477,8 @@ function addPolyLineAndBound(mapId, latlngs, pathId, content) {
 
 function removeLayer(layerId) {
     L.removeLayer(layers[layerId]);
+}
+
+function removePolyline(pathId, mapId) {
+    maps[mapId].removeLayer(polylines[pathId]);
 }

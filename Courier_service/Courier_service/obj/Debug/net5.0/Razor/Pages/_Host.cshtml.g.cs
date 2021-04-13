@@ -12,8 +12,23 @@ namespace Courier_service.Pages
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
+#nullable restore
+#line 1 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\_ViewImports.cshtml"
+using Microsoft.AspNetCore.Identity;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 2 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\_ViewImports.cshtml"
+using Courier_service.Areas.Identity;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorCompiledItemMetadataAttribute("RouteTemplate", "/")]
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"3411479eb028aa595a26d1eb8b0a0f8607d05ce1", @"/Pages/_Host.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"35571a5c66122ce9d796786f6ec16d0c44e2d20b", @"/Pages/_ViewImports.cshtml")]
     public class Pages__Host : global::Microsoft.AspNetCore.Mvc.RazorPages.Page
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("href", new global::Microsoft.AspNetCore.Html.HtmlString("~/"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -56,9 +71,9 @@ namespace Courier_service.Pages
 #line hidden
 #nullable disable
             WriteLiteral("\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3411479eb028aa595a26d1eb8b0a0f8607d05ce14421", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3411479eb028aa595a26d1eb8b0a0f8607d05ce15012", async() => {
                 WriteLiteral("\r\n\t<meta charset=\"utf-8\" />\r\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\r\n\t<title>Courier_service</title>\r\n\t");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("base", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "3411479eb028aa595a26d1eb8b0a0f8607d05ce14831", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("base", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "3411479eb028aa595a26d1eb8b0a0f8607d05ce15422", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -99,9 +114,9 @@ namespace Courier_service.Pages
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3411479eb028aa595a26d1eb8b0a0f8607d05ce17825", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3411479eb028aa595a26d1eb8b0a0f8607d05ce18416", async() => {
                 WriteLiteral("\r\n\t");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("component", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "3411479eb028aa595a26d1eb8b0a0f8607d05ce18085", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("component", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "3411479eb028aa595a26d1eb8b0a0f8607d05ce18676", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_ComponentTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper>();
@@ -130,7 +145,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_ComponentTagHelper.RenderMode = global::Mi
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n\r\n\t<div id=\"blazor-error-ui\">\r\n\t\t");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("environment", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3411479eb028aa595a26d1eb8b0a0f8607d05ce110139", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("environment", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3411479eb028aa595a26d1eb8b0a0f8607d05ce110730", async() => {
                     WriteLiteral("\r\n\t\t\tAn error has occurred. This application may no longer respond until reloaded.\r\n\t\t");
                 }
                 );
@@ -146,7 +161,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_ComponentTagHelper.RenderMode = global::Mi
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n\t\t");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("environment", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3411479eb028aa595a26d1eb8b0a0f8607d05ce111483", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("environment", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3411479eb028aa595a26d1eb8b0a0f8607d05ce112074", async() => {
                     WriteLiteral("\r\n\t\t\tAn unhandled exception has occurred. See browser dev tools for details.\r\n\t\t");
                 }
                 );

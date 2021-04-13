@@ -19,10 +19,10 @@ namespace Courier_service.Services.LocationService
 
         public Address getLocationData(float lon, float lat)
         {
-            return GetAddress(lon, lat).Result;
+            return GetAddressAsync(lon, lat).Result;
         }
 
-        public async Task<Address> GetAddress(float lon, float lat)
+        public async Task<Address> GetAddressAsync(float lon, float lat)
         {
             Address address = new Address(lat, lon);
 
@@ -58,7 +58,7 @@ namespace Courier_service.Services.LocationService
             return address;
         }
 
-        public async Task<Address> GetAddress(string addr)
+        public async Task<Address> GetAddressAsync(string addr)
         {
             Address address = new Address();
             var request = new HttpRequestMessage(HttpMethod.Get,
@@ -86,11 +86,11 @@ namespace Courier_service.Services.LocationService
                         }
                     }
                 }
-                catch { Console.WriteLine("Не найдено"); address = null; }
+                catch { Console.WriteLine("Адрес не найден!"); address = null; }
             }
             else
             {
-                Console.WriteLine("Error");
+                Console.WriteLine("Не удалось отправить запрос!");
                 address = null;
             }
 
