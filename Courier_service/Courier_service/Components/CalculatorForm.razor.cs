@@ -34,17 +34,14 @@ namespace Courier_service.Components
             {
                 downloading = true;
                 mapVisible = true;
+                
                 _mapController.deleteAllMarkers();
                 _mapController.deleteAllPolylines();
-                //Address sAddr = locationProvider.GetAddress(SendAddress).Result; //new Address();
-                //Address dAddr = locationProvider.GetAddress(RecAddress).Result; //new Address();
 
                 await Task.Run(() =>
                 {
-                    //sAddr = locationProvider.GetAddress(SendAddress).Result;
-                    //dAddr = locationProvider.GetAddress(RecAddress).Result;
-                    Address sAddr = locationProvider.GetAddressAsync("Киров " + SendAddress).Result;
-                    Address dAddr = locationProvider.GetAddressAsync("Киров " + RecAddress).Result;
+                    Address sAddr = locationProvider.GetAddress(SendAddress);
+                    Address dAddr = locationProvider.GetAddress(RecAddress);
 
                     if (sAddr != null && dAddr != null)
                     {

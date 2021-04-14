@@ -482,3 +482,24 @@ function removeLayer(layerId) {
 function removePolyline(pathId, mapId) {
     maps[mapId].removeLayer(polylines[pathId]);
 }
+
+var Popups = {};
+
+function addPopupToMap(mapId) {
+    var popupContent = '<div class="listgroup">'+
+        '<a onclick="returnBtn(' + 1 + ')" class="list-group-item list-group-item-action">From here</a>' +
+        '<a onclick="returnBtn(' + 2 + ')" class="list-group-item list-group-item-action">To here</a>' +
+                        '</div > ';
+    Popups[mapId] = L.popup()
+        .setContent(popupContent);
+}
+
+function openMapPopup(mapId, latlngs) {
+    latlngs = JSON.parse(latlngs);
+    Popups[mapId].setLatLng(latlngs);
+    maps[mapId].openPopup(Popups[mapId]);
+}
+
+function returnBtn(btn) {
+    DotNet.invokeMethodAsync('Courier_service', 'GetDistButton', '' + btn);
+}

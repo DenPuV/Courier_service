@@ -134,6 +134,7 @@ using BlazorLeaflet.Models;
 		_map = new Map(_jsRuntime);
 		_map.OnInitialized += () =>
 		{
+			_map.OnContextMenu += (s, me) => { OpenPopup(s, me); };
 			_mapController = new MapController(_jsRuntime, _clientFactory, _map);
 			mapReady = true;
 		};
@@ -142,6 +143,11 @@ using BlazorLeaflet.Models;
 		_map.MaxBounds = Tuple.Create<LatLng, LatLng>(new LatLng(58.6784f, 49.4508f), new LatLng(58.545f, 49.8065f));//58.6784, 49.4508 - 58.54, 49.8065
 		_map.RaiseOnInitialized();
 		WrongAddress += (str) => { ShowErrorSnackBar(str); };
+	}
+
+	public void OpenPopup(Map sender, BlazorLeaflet.Models.Events.MouseEvent me)
+	{
+		_mapController.OpenMapPopup($"[{me.LatLng.Lat.ToString().Replace(',', '.')},{me.LatLng.Lng.ToString().Replace(',', '.')}]");
 	}
 
 #line default

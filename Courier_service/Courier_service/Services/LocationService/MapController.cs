@@ -89,14 +89,12 @@ namespace Courier_service.Services.LocationService
         {
             AddMarker(new Marker(addr.GetLatLng()) { Popup = new Popup() { Content = addr.ToString() } });
         }
-
         public void RemoveMarker(Marker mark)
         {
             markers.Remove(mark);
             _jsRuntime.InvokeVoidAsync("removeLayer", mark.Id);
             _map.RemoveLayer(mark);
         }
-
         public void RemoveMarker(Address addr)
         {
             foreach (Marker mark in markers)
@@ -108,7 +106,6 @@ namespace Courier_service.Services.LocationService
                 }
             }
         }
-
         public void AddMarkers(Marker[] markers)
         {
             foreach (Marker m in markers)
@@ -116,7 +113,6 @@ namespace Courier_service.Services.LocationService
                 AddMarker(m);
             }
         }
-
         public async void AddMarkerAsync(Marker mark)
         {
             await Task.Run(() => 
@@ -131,7 +127,6 @@ namespace Courier_service.Services.LocationService
                 AddMarker(mark);
             });
         }
-
         public async void AddPathAndBound(string path)
         {
             string pathId = StringHelper.GetRandomString(10);
@@ -142,7 +137,6 @@ namespace Courier_service.Services.LocationService
                 _jsRuntime.InvokeVoidAsync("addPolyLineAndBound", new object[] { _map.Id.ToString(), path, pathId, "" });
             });
         }
-
         public async void AddPathAndBound(string path, string content)
         {
             string pathId = StringHelper.GetRandomString(10);
@@ -173,5 +167,7 @@ namespace Courier_service.Services.LocationService
         {
             return _map;
         }
+        public void EnablePopup() => _jsRuntime.InvokeVoidAsync("addPopupToMap", _map.Id);
+        public void OpenMapPopup(string latlngs) => _jsRuntime.InvokeVoidAsync("openMapPopup", new object[] { _map.Id, latlngs });
     }
 }

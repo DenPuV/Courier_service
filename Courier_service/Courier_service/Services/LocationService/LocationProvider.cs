@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
+using BlazorLeaflet.Models;
+using Newtonsoft.Json;
 
 namespace Courier_service.Services.LocationService
 {
@@ -17,80 +19,69 @@ namespace Courier_service.Services.LocationService
             _clientFactory = clientFactory;
         }
 
-        public Address getLocationData(float lon, float lat)
+        public Address GetAddress(float lon, float lat)
         {
-            return GetAddressAsync(lon, lat).Result;
-        }
-
-        public async Task<Address> GetAddressAsync(float lon, float lat)
-        {
-            Address address = new Address(lat, lon);
-
-            var request = new HttpRequestMessage(HttpMethod.Get,
-                $"https://nominatim.openstreetmap.org/reverse?format=json&lat={lat.ToString().Replace(',', '.')}&lon={lon.ToString().Replace(',', '.')}&zoom=10&addressdetails=1&accept-language=ru");
-            request.Headers.Add("Accept", "application/vnd.github.v3+json");
-            request.Headers.Add("User-Agent", "HttpClientFactory-Course");
-            var client = _clientFactory.CreateClient();
-            var response = await client.SendAsync(request);
-            
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var customerJsonString = await response.Content.ReadAsStringAsync();
-                try
-                {
-                    var addrInfo = JObject.Parse(customerJsonString);
-                    foreach (var property in address.GetType().GetProperties())
-                    {
-                        if (addrInfo.ContainsKey(property.Name))
-                        {
-                            property.SetValue(address, addrInfo.GetValue(property.Name));
-                        }
-                    }
-                }
-                catch { Console.WriteLine("Не найдено"); address = null; }
-            }
-            else
-            {
-                Console.WriteLine("Error");
-                address = null;
+                return AddressRequest($"https://api.openrouteservice.org/geocode/reverse?api_key=5b3ce3597851110001cf62483b8f5face1784d6db2e00f98ba26a2a9" +
+                    $"&point.lon={lon.ToString().Replace(',', '.')}" +
+                    $"&point.lat={lat.ToString().Replace(',', '.')}" +
+                    $"&size=1").Result;
             }
 
-            return address;
+            catch
+            {
+                return null;
+            }
         }
 
-        public async Task<Address> GetAddressAsync(string addr)
+        public Address GetAddress(string addr)
+        {
+            try
+            {
+                return AddressRequest($"https://api.openrouteservice.org/geocode/search?api_key=5b3ce3597851110001cf62483b8f5face1784d6db2e00f98ba26a2a9&boundary.country=RU&size=1&text=Киров " + addr).Result;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private async Task<Address> AddressRequest(string URL)
         {
             Address address = new Address();
-            var request = new HttpRequestMessage(HttpMethod.Get,
-                $"https://nominatim.openstreetmap.org/search?limit=1&format=json&q=" + addr);
+            var request = new HttpRequestMessage(HttpMethod.Get, URL);
             request.Headers.Add("Accept", "application/vnd.github.v3+json");
             request.Headers.Add("User-Agent", "HttpClientFactory-Course");
             var client = _clientFactory.CreateClient();
 
-            var response = await client.SendAsync(request);
+            var response = client.Send(request);
 
             if (response.IsSuccessStatusCode)
             {
                 var customerJsonString = await response.Content.ReadAsStringAsync();
-                customerJsonString = customerJsonString.Remove(0, 1);
-                customerJsonString = customerJsonString.Remove(customerJsonString.Length - 1, 1);
-                
                 try
                 {
-                    var addrInfo = JObject.Parse(customerJsonString);
-                    foreach (var property in address.GetType().GetProperties())
+                    dynamic results = JsonConvert.DeserializeObject<dynamic>(customerJsonString);
+                    dynamic coordinates = results.features[0].geometry.coordinates;
+                    if (coordinates != null)
                     {
-                        if (addrInfo.ContainsKey(property.Name))
-                        {
-                            property.SetValue(address, addrInfo.GetValue(property.Name).ToString());
-                        }
+                        address.lon = coordinates[0];
+                        address.lat = coordinates[1];
+                    }
+                    dynamic properties = results.features[0].properties;
+                    if (properties != null)
+                    {
+                        address.display_name = properties.label;
+                        address.country = properties.country;
+                        address.region = properties.region;
+                        address.county = properties.county;
                     }
                 }
-                catch { Console.WriteLine("Адрес не найден!"); address = null; }
+                catch { address = null; }
             }
             else
             {
-                Console.WriteLine("Не удалось отправить запрос!");
                 address = null;
             }
 
@@ -133,6 +124,27 @@ namespace Courier_service.Services.LocationService
             }
 
             return str;
+        }
+
+        public static string makePath(LatLng latlng1, LatLng latlng2) 
+        {
+            return $"[[{latlng1.Lat.ToString().Replace(',', '.')},{latlng1.Lng.ToString().Replace(',', '.')}],[{latlng2.Lat.ToString().Replace(',', '.')},{latlng2.Lng.ToString().Replace(',', '.')}]]";
+        }
+        public static string makePath(LatLng[] latlngs)
+        {
+            string str = "[";
+
+            foreach (LatLng l in latlngs)
+            {
+                str += $"[{l.Lat.ToString().Replace(',', '.')},{l.Lng.ToString().Replace(',', '.')}],";
+            }
+            str += "]";
+            str = str.Replace(",]", "]");
+            return str;
+        }
+        public static string makeStringLatlng(LatLng ll)
+        {
+            return $"[{ll.Lat.ToString().Replace(',', '.')},{ll.Lng.ToString().Replace(',', '.')}]";
         }
     }
 }

@@ -103,6 +103,33 @@ using Courier_service.Components;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 29 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Shared\MainLayout.razor"
+      
+	bool open = false;
+
+	void ToggleDrawer()
+	{
+		open = !open;
+	}
+
+	public void OnSwipe(SwipeDirection direction)
+	{
+		if (direction == SwipeDirection.LeftToRight && !open)
+		{
+			open = true;
+			StateHasChanged();
+		}
+		else if (direction == SwipeDirection.RightToLeft && open)
+		{
+			open = false;
+			StateHasChanged();
+		}
+	}
+
+#line default
+#line hidden
+#nullable disable
     }
 }
 #pragma warning restore 1591

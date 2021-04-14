@@ -1,10 +1,23 @@
-﻿<AuthorizeView>
+﻿<AuthorizeView Roles="Client">
     <Authorized>
         <MudLink Color="Color.Secondary" href="Identity/Account/Manage">Hello, @context.User.Identity.Name! </MudLink>
         <form method="post" action="Identity/Account/LogOut">
             <MudButton Variant="Variant.Text" ButtonType="ButtonType.Submit" EndIcon="@Icons.Filled.Logout" Color="Color.Secondary">Log out</MudButton>
         </form>
     </Authorized>
+	
+</AuthorizeView>
+
+<AuthorizeView Roles="Courier">
+	<Authorized>
+		<MudText Color="Color.Secondary">Hello, @context.User.Identity.Name! </MudText>
+		<form method="post" action="Identity/Account/LogOut">
+			<MudButton Variant="Variant.Text" ButtonType="ButtonType.Submit" EndIcon="@Icons.Filled.Logout" Color="Color.Secondary">Log out</MudButton>
+		</form>
+	</Authorized>
+</AuthorizeView>
+
+<AuthorizeView>
 	<NotAuthorized>
 		<MudButton Link="Identity/Account/Register"
 				   Target="_self"

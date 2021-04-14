@@ -1,60 +1,32 @@
-﻿ <div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">Courier_service</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
+﻿<MudNavMenu>
 
-<AuthorizeView Roles="Client">
-	<Authorized>
-		<p style="color: whitesmoke;" class="text-center">Client menu</p>
-		<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-			<ul class="nav flex-column">
-				<li class="nav-item px-3">
-					<NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-						<span class="oi oi-home" aria-hidden="true"></span> Home
-					</NavLink>
-				</li>
-			</ul>
-		</div>
-	</Authorized>
-	<NotAuthorized>
-		<p>Enter all Clients Data</p>
-		<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-			<ul class="nav flex-column">
-				<li class="nav-item px-3">
-					<MudLink Color="Color.Info" href="Identity/Account/Manage">User settings</MudLink>
-				</li>
-			</ul>
-		</div>
-	</NotAuthorized>
-</AuthorizeView>
+	<AuthorizeView Roles="Client">
+		<Authorized>
+			<MudText Typo="Typo.h6" Class="px-4">Client menu</MudText>
+			<MudDivider Class="my-2" />
+			<MudNavGroup Title="Orders" Expanded="false">
+				<MudNavLink Icon="@Icons.Filled.Create" Href="neworder">New order</MudNavLink>
 
-<AuthorizeView Roles="Courier">
-	<p style="color: whitesmoke;" class="text-center">Courier menu</p>
-	<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-		<ul class="nav flex-column">
-			<li class="nav-item px-3">
-				<NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-					<span class="oi oi-home" aria-hidden="true"></span> Home
-				</NavLink>
-			</li>
-			<li class="nav-item px-3">
-				<NavLink class="nav-link" href="map">
-					<span class="oi oi-plus" aria-hidden="true"></span> Map
-				</NavLink>
-			</li>
-		</ul>
-	</div>
-</AuthorizeView>
+			</MudNavGroup>
+			<MudNavLink Icon="@Icons.Filled.Settings" Href="Identity/Account/Manage">Client settings</MudNavLink>
+		</Authorized>
+	</AuthorizeView>
 
-@code {
-    private bool collapseNavMenu = true;
+	<AuthorizeView Roles="Courier">
+		<Authorized>
+			<MudText Typo="Typo.h6" Class="px-4">Courier menu</MudText>
+			<MudDivider Class="my-2" />
+			<MudText>Nothing here</MudText>
+		</Authorized>
+	</AuthorizeView>
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+	<AuthorizeView>
+		<NotAuthorized>
+			<MudText Typo="Typo.h6" Class="px-4">User menu</MudText>
+			<MudDivider Class="my-2" />
+			<MudText>Enter all client data</MudText>
+			<MudNavLink Icon="@Icons.Filled.Settings" Href="Identity/Account/Manage">Client settings</MudNavLink>
+		</NotAuthorized>
+	</AuthorizeView>
 
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}
+</MudNavMenu>

@@ -3,23 +3,48 @@
 
 <AuthorizeView>
 	<Authorized>
-		<div class="page">
-			<div class="sidebar">
-				<NavMenu />
-			</div>
-
-			<div class="main">
-				<div class="top-row px-4 auth">
+		<MudLayout>
+			<MudSwipeArea OnSwipe="@OnSwipe" Style="width: 100%;">
+				<MudAppBar Elevation="1">
+					<MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+					<MudAppBarSpacer />
 					<LoginDisplay />
-				</div>
-
-				<div class="content px-4">
-					@Body
-				</div>
-			</div>
-		</div>
+				</MudAppBar>
+				<MudDrawer @bind-Open="@open" Elevation="1">
+					<NavMenu />
+				</MudDrawer>
+				<MudMainContent Class="pt-16 px-16">
+					<MudContainer Class="mt-6">
+						@Body
+					</MudContainer>
+				</MudMainContent>
+			</MudSwipeArea>
+		</MudLayout>
 	</Authorized>
 	<NotAuthorized>
 		<MainView />
 	</NotAuthorized>
 </AuthorizeView>
+
+@code{
+	bool open = false;
+
+	void ToggleDrawer()
+	{
+		open = !open;
+	}
+
+	public void OnSwipe(SwipeDirection direction)
+	{
+		if (direction == SwipeDirection.LeftToRight && !open)
+		{
+			open = true;
+			StateHasChanged();
+		}
+		else if (direction == SwipeDirection.RightToLeft && open)
+		{
+			open = false;
+			StateHasChanged();
+		}
+	}
+}

@@ -18,6 +18,12 @@ namespace Courier_service.Services.LocationService
             Lng = lng;
         }
 
+        public Address(LatLng ll)
+        {
+            Lat = ll.Lat;
+            Lng = ll.Lng;
+        }
+
         float? Lat { get; set; }
         float? Lng { get; set; }
         public string lat { get { return (Lat.HasValue) ? Lat.Value.ToString() : ""; } set { Lat = float.Parse(value, CultureInfo.InvariantCulture.NumberFormat); } }
