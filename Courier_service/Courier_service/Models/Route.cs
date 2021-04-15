@@ -11,8 +11,10 @@ namespace Courier_service.Models
     public class Route
     {
         public int Id { get; set; }
-        public string Start { get; set; }
-        public string Finish { get; set; }
+        public string StartCoordinates { get; set; }
+        public string StartName { get; set; }
+        public string FinishCoordinates { get; set; }
+        public string FinishName { get; set; }
 
         [NotMapped]
         public Address StartAddress { get; set; }

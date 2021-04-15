@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Courier_service.Shared
+namespace Courier_service.Pages
 {
     #line hidden
     using System;
@@ -89,7 +89,50 @@ using MudBlazor;
 #line default
 #line hidden
 #nullable disable
-    public partial class NavMenu : Microsoft.AspNetCore.Components.ComponentBase
+#nullable restore
+#line 7 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\Orderslist.razor"
+using BlazorLeaflet;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 8 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\Orderslist.razor"
+using BlazorLeaflet.Models;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 9 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\Orderslist.razor"
+using Courier_service.Services.LocationService;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 10 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\Orderslist.razor"
+using Courier_service.Models;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 11 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\Orderslist.razor"
+using System.Threading;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\Orderslist.razor"
+           [Authorize(Roles = "Client")]
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/orderslist")]
+    public partial class Orderslist : orderslistcode
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -97,12 +140,54 @@ using MudBlazor;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 34 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Shared\NavMenu.razor"
+#line 83 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\Orderslist.razor"
       
-	[CascadingParameter]
-	public bool downloading { get; set; }
+	[Inject]
+	IJSRuntime _jsRuntime { get; set; }
+	[Inject]
+	IHttpClientFactory _clientFactory { get; set; }
+	public bool mapVisible { get; set; } = false;
+	public bool mapReady { get; set; } = false;
+	protected Map _map { get; set; }
+	protected MapController _mapController { get; set; }
 
-	public void SetDownloading() => downloading = true;
+	protected override void OnInitialized()
+	{
+		_map = new Map(_jsRuntime)
+		{
+			Center = new LatLng(58.6035f, 49.668f),
+			Zoom = 10,
+			ZoomControl = false,
+			MaxBounds = Tuple.Create<LatLng, LatLng>(new LatLng(58.6784f, 49.4508f), new LatLng(58.545f, 49.8065f))
+		};
+		_map.OnInitialized += () =>
+		{
+			_mapController = new MapController(_jsRuntime, _clientFactory, _map);
+			mapReady = true;
+		};
+
+		_map.RaiseOnInitialized();
+	}
+
+	public void showRouteOnMap(Route route)
+	{
+		if (mapReady)
+		{
+			_mapController.deleteAllMarkers();
+			_mapController.deleteAllPolylines();
+			LatLng sc = LocationDistance.ParseLatLng(route.StartCoordinates);
+			LatLng fc = LocationDistance.ParseLatLng(route.FinishCoordinates);
+			if (sc != null && fc != null)
+			{
+				//mapVisible = true;
+				_mapController.AddMarker(sc);
+				_mapController.AddMarker(fc);
+				_mapController.AddPathAndBound($"[{route.StartCoordinates},{route.FinishCoordinates}]",
+					$"Distance: {LocationDistance.DistanceBetweenPlaces(sc, fc)}");
+
+			}
+		}
+	}
 
 #line default
 #line hidden

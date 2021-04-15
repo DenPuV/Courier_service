@@ -36,7 +36,7 @@ namespace Courier_service.Models
 
     public class DatabaseService
     {
-        protected readonly ServiceContext _dbcontext;
+        public readonly ServiceContext _dbcontext;
 
         public DatabaseService(ServiceContext _db)
         {

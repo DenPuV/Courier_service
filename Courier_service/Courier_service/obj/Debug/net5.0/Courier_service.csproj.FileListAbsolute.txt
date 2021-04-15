@@ -223,3 +223,5 @@ D:\Курьерская служба\Courier_service\Courier_service\Courier_ser
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\RazorDeclaration\Pages\NewOrder.razor.g.cs
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\Razor\Pages\NewOrder.razor.g.cs
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\RazorDeclaration\Pages\Orderslist.razor.g.cs
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\Razor\Pages\Orderslist.razor.g.cs

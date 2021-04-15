@@ -12,6 +12,10 @@ namespace Courier_service.Models
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public int OrderId { get; set; }
+        [NotMapped]
+        public Order Order { get; set; }
         public int CourierId { get; set; }
+        [NotMapped]
+        public Courier Courier { get; set; }
     }
 }

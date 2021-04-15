@@ -42,7 +42,7 @@ namespace Courier_service.Pages
         public decimal price { get; set; } = 0;
 
         public bool selfContact { get; set; }
-        public bool routeDownloading { get; set; } = true;
+        public bool downloading { get; set; } = true;
         public string selectedWeight { get; set; } = "< 1 kg";
 
         protected override async Task OnInitializedAsync()
@@ -55,11 +55,13 @@ namespace Courier_service.Pages
             {
                 user = await _userManager.FindByNameAsync(idUser.Identity.Name);
                 client = _databaseService.GetClient(user.Id);
-                routeDownloading = false;
+                downloading = false;
             }
             else
             {
                 ShowErrorSnackBar("You are not authorized!");
+                _navigationManager.NavigateTo("/");
+                downloading = false;
             }
         }
 
@@ -98,7 +100,11 @@ namespace Courier_service.Pages
         {
             if (PackageValid() && ContactValid() && RouteValid() && client != null)
             {
-                routeDownloading = true;
+                downloading = true;
+                route.StartCoordinates = LocationProvider.makeStringLatlng(route.StartAddress.GetLatLng());
+                route.FinishCoordinates = LocationProvider.makeStringLatlng(route.FinishAddress.GetLatLng());
+                route.StartName = route.StartAddress.display_name;
+                route.FinishName = route.FinishAddress.display_name;
                 try
                 {
                     _databaseService.PlaceOrder(package, contact, route, client, price);
@@ -106,7 +112,7 @@ namespace Courier_service.Pages
                 }
                 catch { ShowErrorSnackBar("Something went wrong while placing order!"); }
             }
-            routeDownloading = false;
+            downloading = false;
             _navigationManager.NavigateTo("/");
         }
 

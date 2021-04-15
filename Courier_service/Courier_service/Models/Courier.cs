@@ -15,5 +15,10 @@ namespace Courier_service.Models
         public string Patronymic { get; set; }
         public string Phone { get; set; }
         public string AspUserId { get; set; }
+
+        public override string ToString()
+        {
+            return $"{FName} {SName} {Phone}";
+        }
     }
 }

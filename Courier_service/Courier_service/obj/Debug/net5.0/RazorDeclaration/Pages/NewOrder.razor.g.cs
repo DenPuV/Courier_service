@@ -154,7 +154,6 @@ using Courier_service.Services.LocationService;
 		_map.Center = new LatLng(58.6035f, 49.668f);
 		_map.Zoom = 10; _map.MinZoom = 10;
 		_map.MaxBounds = Tuple.Create<LatLng, LatLng>(new LatLng(58.6784f, 49.4508f), new LatLng(58.545f, 49.8065f));
-
 		_map.RaiseOnInitialized();
 	}
 
@@ -166,7 +165,7 @@ using Courier_service.Services.LocationService;
 
 	public void getDestAddr(string btn)
 	{
-		routeDownloading = true;
+		downloading = true;
 		StateHasChanged();
 		if (btn == "1")
 		{
@@ -177,7 +176,7 @@ using Courier_service.Services.LocationService;
 			{
 				route.StartAddress = null;
 				startStr = String.Empty;
-				route.Start = String.Empty;
+				route.StartCoordinates = String.Empty;
 				ShowErrorSnackBar("Sending address not found!");
 			}
 			else
@@ -186,7 +185,7 @@ using Courier_service.Services.LocationService;
 				startMarker.Popup = new Popup() { AutoClose = true, Content = route.StartAddress.ToString() };
 				startStr = route.StartAddress.ToString();
 				_mapController.AddMarkerAsync(startMarker);
-				route.Start = LocationProvider.makeStringLatlng(popupLatLng);
+				route.StartCoordinates = LocationProvider.makeStringLatlng(popupLatLng);
 			}
 		}
 		else
@@ -197,7 +196,7 @@ using Courier_service.Services.LocationService;
 			{
 				route.FinishAddress = null;
 				finishStr = String.Empty;
-				route.Start = String.Empty;
+				route.FinishCoordinates = String.Empty;
 				ShowErrorSnackBar("Recivig address not found!");
 			}
 			else
@@ -206,7 +205,7 @@ using Courier_service.Services.LocationService;
 				finishMarker.Popup = new Popup() { AutoClose = true, Content = route.FinishAddress.ToString() };
 				finishStr = route.FinishAddress.ToString();
 				_mapController.AddMarkerAsync(finishMarker);
-				route.Finish = LocationProvider.makeStringLatlng(popupLatLng);
+				route.FinishCoordinates = LocationProvider.makeStringLatlng(popupLatLng);
 			}
 		}
 		if (route.StartAddress != null && route.FinishAddress != null)
@@ -217,14 +216,14 @@ using Courier_service.Services.LocationService;
 			_mapController.AddPathAndBound(LocationProvider.makePath(route.StartAddress.GetLatLng(), route.FinishAddress.GetLatLng()),
 				"Disctance: " + distance.ToString("N0") + " m<br>Price: " + price.ToString("N0") + " ₽ for package " + selectedWeight);
 		}
-		routeDownloading = false;
+		downloading = false;
 		StateHasChanged();
 	}
 	public void FoundAddress()
 	{
 		if (startStr != String.Empty && finishStr != String.Empty)
 		{
-			routeDownloading = true;
+			downloading = true;
 			_mapController.deleteAllMarkers();
 			_mapController.deleteAllPolylines();
 			route.StartAddress = locationProvider.GetAddress(startStr);
@@ -235,13 +234,13 @@ using Courier_service.Services.LocationService;
 				startMarker.Position = route.StartAddress.GetLatLng();
 				startStr = route.StartAddress.ToString();
 				_mapController.AddMarkerAsync(startMarker);
-				route.Start = LocationProvider.makeStringLatlng(route.StartAddress.GetLatLng());
+				route.StartCoordinates = LocationProvider.makeStringLatlng(route.StartAddress.GetLatLng());
 
 				finishMarker.Popup = new Popup() { AutoClose = true, Content = route.FinishAddress.ToString() };
 				finishMarker.Position = route.FinishAddress.GetLatLng();
 				finishStr = route.FinishAddress.ToString();
 				_mapController.AddMarkerAsync(finishMarker);
-				route.Finish = LocationProvider.makeStringLatlng(route.FinishAddress.GetLatLng());
+				route.FinishCoordinates = LocationProvider.makeStringLatlng(route.FinishAddress.GetLatLng());
 
 				_mapController.deleteAllPolylines();
 				distance = LocationDistance.DistanceBetweenPlaces(route.StartAddress.GetLatLng(), route.FinishAddress.GetLatLng());
@@ -254,7 +253,7 @@ using Courier_service.Services.LocationService;
 				if (route.StartAddress == null) ShowErrorSnackBar("Sending address not found!");
 				if (route.FinishAddress == null) ShowErrorSnackBar("Reciving address not found!");
 			}
-			routeDownloading = false;
+			downloading = false;
 		}
 	}
 

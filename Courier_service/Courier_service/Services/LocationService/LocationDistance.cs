@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlazorLeaflet.Models;
+using Newtonsoft.Json;
 
 namespace Courier_service.Services.LocationService
 {
@@ -46,6 +47,19 @@ namespace Courier_service.Services.LocationService
         public static double DistanceBetweenPlaces(LatLng loc1, LatLng loc2)
         {
             return DistanceBetweenPlaces(loc1.Lng, loc1.Lat, loc2.Lng, loc2.Lat);
+        }
+
+        public static LatLng ParseLatLng(string str)
+        {
+            try
+            {
+                dynamic results = JsonConvert.DeserializeObject<dynamic>(str);
+                return new LatLng((float)results[0], (float)results[1]);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

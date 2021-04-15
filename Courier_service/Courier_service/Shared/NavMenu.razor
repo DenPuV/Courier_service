@@ -2,11 +2,11 @@
 
 	<AuthorizeView Roles="Client">
 		<Authorized>
-			<MudText Typo="Typo.h6" Class="px-4">Client menu</MudText>
+			<MudText Typo="Typo.h4" Class="px-4">Client menu</MudText>
 			<MudDivider Class="my-2" />
 			<MudNavGroup Title="Orders" Expanded="false">
+				<MudNavLink Icon="@Icons.Filled.List" Href="orderslist">Orders list</MudNavLink>
 				<MudNavLink Icon="@Icons.Filled.Create" Href="neworder">New order</MudNavLink>
-
 			</MudNavGroup>
 			<MudNavLink Icon="@Icons.Filled.Settings" Href="Identity/Account/Manage">Client settings</MudNavLink>
 		</Authorized>
@@ -14,7 +14,7 @@
 
 	<AuthorizeView Roles="Courier">
 		<Authorized>
-			<MudText Typo="Typo.h6" Class="px-4">Courier menu</MudText>
+			<MudText Typo="Typo.h4" Class="px-4">Courier menu</MudText>
 			<MudDivider Class="my-2" />
 			<MudText>Nothing here</MudText>
 		</Authorized>
@@ -22,11 +22,18 @@
 
 	<AuthorizeView>
 		<NotAuthorized>
-			<MudText Typo="Typo.h6" Class="px-4">User menu</MudText>
+			<MudText Typo="Typo.h4" Class="px-4">User menu</MudText>
 			<MudDivider Class="my-2" />
-			<MudText>Enter all client data</MudText>
+			<MudText>Enter all client data first!</MudText>
 			<MudNavLink Icon="@Icons.Filled.Settings" Href="Identity/Account/Manage">Client settings</MudNavLink>
 		</NotAuthorized>
 	</AuthorizeView>
 
 </MudNavMenu>
+
+@code{
+	[CascadingParameter]
+	public bool downloading { get; set; }
+
+	public void SetDownloading() => downloading = true;
+}
