@@ -90,42 +90,42 @@ using MudBlazor;
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\Orderslist.razor"
-using BlazorLeaflet;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 8 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\Orderslist.razor"
-using BlazorLeaflet.Models;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 9 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\Orderslist.razor"
-using Courier_service.Services.LocationService;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 10 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\Orderslist.razor"
+#line 3 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\CourierOrders.razor"
 using Courier_service.Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\Orderslist.razor"
-           [Authorize(Roles = "Client")]
+#line 4 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\CourierOrders.razor"
+using BlazorLeaflet;
 
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/orderslist")]
-    public partial class Orderslist : orderslistcode
+#nullable restore
+#line 5 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\CourierOrders.razor"
+using BlazorLeaflet.Models;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\CourierOrders.razor"
+using Courier_service.Services.LocationService;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 10 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\CourierOrders.razor"
+           [Authorize(Roles = "Courier")]
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/courierorders")]
+    public partial class CourierOrders : CourierOrdersCode
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -133,15 +133,12 @@ using Courier_service.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 101 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\Orderslist.razor"
+#line 103 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\CourierOrders.razor"
       
 	[Inject]
 	IJSRuntime _jsRuntime { get; set; }
-	[Inject]
-	IHttpClientFactory _clientFactory { get; set; }
 	public bool mapReady { get; set; } = false;
 	protected Map _map { get; set; }
-	protected MapController _mapController { get; set; }
 
 
 	protected override void OnInitialized()
@@ -173,69 +170,7 @@ using Courier_service.Models;
 		}
 	}
 
-	private async void OpenCommentDialog(Order order)
-	{
-		var parameters = new DialogParameters { ["orderId"] = order.Id, ["databaseService"] = _databaseService };
-		var options = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true };
 
-		MudBlazor.DialogResult dr = await DialogService.Show<LeaveCommentDialog>("Comment Dialog", parameters, options).Result;
-
-		if (dr.Cancelled == false && (bool)dr.Data == true)
-		{
-			order.Comments = (from comment in _databaseService._dbcontext.Comments
-							  where comment.OrderId == order.Id
-							  select comment).ToList<Comment>();
-			InvokeAsync( () => StateHasChanged());
-		}
-
-	}
-
-	private async void CancellOrder(Order order)
-	{
-		var parameters = new DialogParameters { ["content"] = "Cancel order?"};
-
-		MudBlazor.DialogResult dr = await DialogService.Show<AcceptDialog>("You sure?", parameters).Result;
-
-		if (dr.Cancelled == false && (bool)dr.Data == true)
-		{
-			try
-			{
-				if (_databaseService.CancellOrder(order) != null)
-				{
-					Snackbar.Add("Order cancelled!", Severity.Success);
-					InvokeAsync(() => StateHasChanged());
-				}
-				else Snackbar.Add("Order not found!", Severity.Error);
-
-			}
-			catch (Exception e)
-			{
-				Snackbar.Add(e.Message, Severity.Error);
-			}
-		}
-	}
-
-	private async void ReverseOrder(Order order)
-	{
-		var parameters = new DialogParameters { ["content"] = "Reverse order?" };
-
-		MudBlazor.DialogResult dr = await DialogService.Show<AcceptDialog>("You sure?", parameters).Result;
-
-		if (dr.Cancelled == false && (bool)dr.Data == true)
-		{
-			try
-			{
-				_databaseService.PlaceReverseOrder(order);
-				Snackbar.Add("Oreder reversed!", Severity.Success);
-
-			}
-			catch (Exception e)
-			{
-				Snackbar.Add(e.Message, Severity.Error);
-			}
-		}
-		StateHasChanged();
-	}
 
 #line default
 #line hidden

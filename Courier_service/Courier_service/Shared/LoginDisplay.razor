@@ -15,7 +15,7 @@
 
 <AuthorizeView Roles="Courier">
 	<Authorized>
-			<MudText Color="Color.Tertiary"><MudHidden Breakpoint="Breakpoint.SmAndDown">Hello, </MudHidden>@context.User.Identity.Name /></MudText>
+			<MudText Color="Color.Tertiary"><MudHidden Breakpoint="Breakpoint.SmAndDown">Hello, </MudHidden>@context.User.Identity.Name </MudText>
 			<form method="post" action="Identity/Account/LogOut">
 			<MudButton Variant="Variant.Text" ButtonType="ButtonType.Submit" EndIcon="@Icons.Filled.Logout" Color="Color.Tertiary">
 				<MudHidden Breakpoint="Breakpoint.SmAndDown">Log out</MudHidden>

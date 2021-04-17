@@ -8,23 +8,14 @@
 @using BlazorLeaflet.Models
 @using Courier_service.Services.LocationService
 @using Courier_service.Models
-@using System.Threading
 
-
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
 
 <MudText Class="mb-4" Typo="Typo.h3">Orders list</MudText>
 <MudOverlay Visible="@downloading" DarkBackground="true" Absolute="false" ZIndex="2000">
 	<MudProgressCircular Color="Color.Primary" Indeterminate="true" />
 </MudOverlay>
-
-@if (mapReady)
-{
-	<MudOverlay Visible="@mapVisible" DarkBackground="true" Absolute="false" ZIndex="2000" AutoClose="true">
-		<div style="width: 400px; height: 400px;">
-			<LeafletMap Map="@_map" />
-		</div>
-	</MudOverlay>
-}
 
 @if (dataLoaded)
 {
@@ -34,43 +25,70 @@
 			<MudItem xs="12">
 				<MudPaper Class="d-flex align-center mud-full-width px-4 py-4" Elevation="3">
 					<MudGrid Spacing="3">
-						<MudItem Class="p-4 align-center" xs="12">
+						<MudItem Class="p-xs-1 p-md-4 align-center" xs="12">
 							<MudText Typo="Typo.h5">Order №@order.Id</MudText>
-							<MudText Typo="Typo.body2">@order.Date.ToShortDateString()</MudText>
+							<MudText Typo="Typo.body2">@order.Date</MudText>
 						</MudItem>
-						<MudItem Class="p-4 align-center" xs="12" md="6" lg="3">
+						<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" md="6" lg="3">
 							<MudText Typo="Typo.h6">Package</MudText>
 							<MudText Typo="Typo.body1">@order.Package.Description</MudText>
 							<MudText Typo="Typo.body2">Weight: @order.Package.Weight</MudText>
 						</MudItem>
-						<MudItem Class="p-4 align-center" xs="12" md="6" lg="3">
+						<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" md="6" lg="3">
 							<MudText Typo="Typo.h6">Contact</MudText>
-							<MudText Typo="Typo.body1">@order.Contact.FName</MudText>
 							<MudText Typo="Typo.body1">@order.Contact.SName</MudText>
+							<MudText Typo="Typo.body1">@order.Contact.FName</MudText>
 							<MudText Typo="Typo.body1">@order.Contact.Patronymic</MudText>
 							<MudText Typo="Typo.body1">@order.Contact.Phone</MudText>
 						</MudItem>
-						<MudItem Class="p-4 align-center" xs="12" md="6" lg="3">
+						<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" md="6" lg="3">
 							<MudText Typo="Typo.h6">Route</MudText>
 							<MudText Typo="Typo.body1">@order.Route.StartName</MudText>
 							<MudIcon Icon="@Icons.Filled.ArrowDownward" />
 							<MudText Typo="Typo.body1">@order.Route.FinishName</MudText>
-							<MudButton OnClick="@(() => { mapVisible = true; showRouteOnMap(order.Route); })" Variant="Variant.Filled"
+							<MudButton OnClick="@(() => { showRouteOnMap(order.Route); })" Variant="Variant.Filled"
 									   Class="m-2" Color="Color.Default">Show route</MudButton>
 						</MudItem>
-						<MudItem Class="p-4 align-center" xs="12" md="6" lg="3">
+						<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" md="6" lg="3">
 							<MudText Typo="Typo.body1">Status: @order.Status</MudText>
-							@if (order.Delivery == null)
-							{
-								<MudText Typo="Typo.body1">Not delivering</MudText>
-							}
 						</MudItem>
 						@if (order.Delivery != null)
 						{
-							<MudItem Class="p-4 align-center" xs="12">
+							<MudItem Class="p-xs-1 p-md-4 align-center" xs="12">
 								<MudText Typo="Typo.h6">Delivery</MudText>
 								<MudText Typo="Typo.body1">Delivery start at @order.Date.ToShortDateString()</MudText>
 								<MudText Typo="Typo.body1">Courier: @order.Delivery.Courier.ToString()</MudText>
+							</MudItem>
+						}
+						@if (order.Comments.Count > 0)
+						{
+							<MudText Class="p-xs-1 p-md-4 align-center" Typo="Typo.h6">Comments</MudText>
+							foreach (Comment comment in order.Comments)
+							{
+								<MudItem Class="p-xs-1 p-md-4 align-center" xs="12">
+									<MudText Typo="Typo.body1">@comment.Content</MudText>
+									<MudText Typo="Typo.body2">@comment.Date</MudText>
+									<hr>
+								</MudItem>
+							}
+						}
+						@if (!(order.Status == "cancelled" || order.Status == "reversed" || order.Status == "delivered"))
+						{
+							<MudItem xs="12" md="6">
+								<MudButton @onclick="@(() => OpenCommentDialog(order))"
+										   Color="Color.Default">Leave comment</MudButton>
+							</MudItem>
+							<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" md="6">
+								@if (order.Status != "delivering" && order.Status != "return")
+								{
+									<MudButton @onclick="@(() => CancellOrder(order))"
+											   Color="Color.Primary" Variant="Variant.Filled">Cancel order</MudButton>
+								}
+								else if (order.Status == "delivering")
+								{
+									<MudButton @onclick="@(() => ReverseOrder(order))"
+											   Color="Color.Primary" Variant="Variant.Filled">Return package</MudButton>
+								}
 							</MudItem>
 						}
 					</MudGrid>
@@ -85,10 +103,10 @@
 	IJSRuntime _jsRuntime { get; set; }
 	[Inject]
 	IHttpClientFactory _clientFactory { get; set; }
-	public bool mapVisible { get; set; } = false;
 	public bool mapReady { get; set; } = false;
 	protected Map _map { get; set; }
 	protected MapController _mapController { get; set; }
+
 
 	protected override void OnInitialized()
 	{
@@ -112,19 +130,74 @@
 	{
 		if (mapReady)
 		{
-			_mapController.deleteAllMarkers();
-			_mapController.deleteAllPolylines();
-			LatLng sc = LocationDistance.ParseLatLng(route.StartCoordinates);
-			LatLng fc = LocationDistance.ParseLatLng(route.FinishCoordinates);
-			if (sc != null && fc != null)
+			var parameters = new DialogParameters { ["route"] = route, ["mapController"] = _mapController };
+			var options = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true };
+
+			DialogService.Show<MapDialog>("Map", parameters, options);
+		}
+	}
+
+	private async void OpenCommentDialog(Order order)
+	{
+		var parameters = new DialogParameters { ["orderId"] = order.Id, ["databaseService"] = _databaseService };
+		var options = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true };
+
+		MudBlazor.DialogResult dr = await DialogService.Show<LeaveCommentDialog>("Comment Dialog", parameters, options).Result;
+
+		if (dr.Cancelled == false && (bool)dr.Data == true)
+		{
+			order.Comments = (from comment in _databaseService._dbcontext.Comments
+							  where comment.OrderId == order.Id
+							  select comment).ToList<Comment>();
+			InvokeAsync( () => StateHasChanged());
+		}
+
+	}
+
+	private async void CancellOrder(Order order)
+	{
+		var parameters = new DialogParameters { ["content"] = "Cancel order?"};
+
+		MudBlazor.DialogResult dr = await DialogService.Show<AcceptDialog>("You sure?", parameters).Result;
+
+		if (dr.Cancelled == false && (bool)dr.Data == true)
+		{
+			try
 			{
-				//mapVisible = true;
-				_mapController.AddMarker(sc);
-				_mapController.AddMarker(fc);
-				_mapController.AddPathAndBound($"[{route.StartCoordinates},{route.FinishCoordinates}]",
-					$"Distance: {LocationDistance.DistanceBetweenPlaces(sc, fc)}");
+				if (_databaseService.CancellOrder(order) != null)
+				{
+					Snackbar.Add("Order cancelled!", Severity.Success);
+					InvokeAsync(() => StateHasChanged());
+				}
+				else Snackbar.Add("Order not found!", Severity.Error);
 
 			}
+			catch (Exception e)
+			{
+				Snackbar.Add(e.Message, Severity.Error);
+			}
 		}
+	}
+
+	private async void ReverseOrder(Order order)
+	{
+		var parameters = new DialogParameters { ["content"] = "Reverse order?" };
+
+		MudBlazor.DialogResult dr = await DialogService.Show<AcceptDialog>("You sure?", parameters).Result;
+
+		if (dr.Cancelled == false && (bool)dr.Data == true)
+		{
+			try
+			{
+				_databaseService.PlaceReverseOrder(order);
+				Snackbar.Add("Oreder reversed!", Severity.Success);
+
+			}
+			catch (Exception e)
+			{
+				Snackbar.Add(e.Message, Severity.Error);
+			}
+		}
+		StateHasChanged();
 	}
 }

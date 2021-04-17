@@ -30,5 +30,17 @@ namespace Courier_service.Models
 
         [NotMapped]
         public Delivery  Delivery{ get; set; }
+        [NotMapped]
+        public List<Comment> Comments { get; set; }
+
+        /*
+         Statuses:
+            accepted
+            waiting for delivery
+            delivering
+            delivered
+            cancelled
+            reversed
+         */
     }
 }

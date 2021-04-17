@@ -1,0 +1,140 @@
+﻿@page "/courierorders"
+
+@using Courier_service.Models
+@using BlazorLeaflet
+@using BlazorLeaflet.Models
+@using Courier_service.Services.LocationService
+
+@inherits CourierOrdersCode
+
+@attribute [Authorize(Roles = "Courier")]
+
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+<MudOverlay Visible="@downloading" DarkBackground="true" Absolute="false" ZIndex="2000">
+	<MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+</MudOverlay>
+
+<MudText Typo="Typo.h4">
+	Orders
+</MudText>
+
+@if (dataLoaded)
+{
+	if (order != null)
+	{
+		<MudPaper Class="d-flex align-center mud-full-width px-4 py-4" Elevation="3">
+			<MudGrid>
+				<MudItem Class="p-xs-1 p-md-4 align-center" xs="12">
+					<MudText Typo="Typo.h5">Order №@order.Id</MudText>
+					<MudText Typo="Typo.body2">@order.Date</MudText>
+				</MudItem>
+				<MudItem xs="12" lg="8">
+					@if (mapReady)
+					{
+						<div style="height: 400px; width: 100%;">
+							<BlazorLeaflet.LeafletMap Map="@_map" />
+						</div>
+					}
+					else
+					{
+						<MudSkeleton Height="400px" Width="100%" />
+					}
+				</MudItem>
+				<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" lg="4">
+					<MudText Typo="Typo.h6">Contact</MudText>
+					<MudText Typo="Typo.body1">@order.Contact.SName</MudText>
+					<MudText Typo="Typo.body1">@order.Contact.FName</MudText>
+					<MudText Typo="Typo.body1">@order.Contact.Patronymic</MudText>
+					<MudText Typo="Typo.body1">@order.Contact.Phone</MudText>
+				</MudItem>
+				<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" md="6">
+					<MudText Typo="Typo.h6">Route</MudText>
+					<MudText Typo="Typo.body1">@order.Route.StartName</MudText>
+					<MudIcon Icon="@Icons.Filled.ArrowDownward" />
+					<MudText Typo="Typo.body1">@order.Route.FinishName</MudText>
+					<MudButton OnClick="@(() => ShowRoute(route))" Variant="Variant.Filled"
+							   Class="m-2" Color="Color.Default">Show route</MudButton>
+				</MudItem>
+				<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" md="6">
+					<MudButton @onclick="@(() => CompleteDelivery())" Variant="Variant.Filled" Color="Color.Primary">
+						Complete delivery
+					</MudButton>
+				</MudItem>
+			</MudGrid>
+		</MudPaper>
+	}
+	else
+	{
+		foreach (Order ord in Orders)
+		{
+			<MudGrid>
+				<MudItem xs="12">
+					<MudPaper Class="d-flex align-center mud-full-width px-4 py-4" Elevation="3">
+						<MudGrid Spacing="3">
+							<MudItem Class="p-xs-1 p-md-4 align-center" xs="12">
+								<MudText Typo="Typo.h5">Order №@ord.Id</MudText>
+								<MudText Typo="Typo.body2">@ord.Date</MudText>
+							</MudItem>
+							<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" md="6">
+								<MudText Typo="Typo.h6">Route</MudText>
+								<MudText Typo="Typo.body1">@ord.Route.StartName</MudText>
+								<MudIcon Icon="@Icons.Filled.ArrowDownward" />
+								<MudText Typo="Typo.body1">@ord.Route.FinishName</MudText>
+								<MudButton OnClick="@(() => { showRouteOnMap(ord.Route); })" Variant="Variant.Filled"
+										   Class="m-2" Color="Color.Default">Show route</MudButton>
+							</MudItem>
+							<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" md="6">
+								<MudText Typo="Typo.h6">Weight</MudText>
+								<MudText Typo="Typo.body1">@ord.Type</MudText>
+							</MudItem>
+							<MudItem xs="12">
+								<MudButton @onclick="@(() => StartDelivering(ord))" Variant="Variant.Filled" Color="Color.Primary">Start delivering</MudButton>
+							</MudItem>
+						</MudGrid>
+					</MudPaper>
+				</MudItem>
+			</MudGrid>
+		}
+		<MudText Typo="Typo.h6">No more orders</MudText>
+	}
+}
+
+@code{
+	[Inject]
+	IJSRuntime _jsRuntime { get; set; }
+	public bool mapReady { get; set; } = false;
+	protected Map _map { get; set; }
+
+
+	protected override void OnInitialized()
+	{
+		_map = new Map(_jsRuntime)
+		{
+			Center = new LatLng(58.6035f, 49.668f),
+			Zoom = 10,
+			ZoomControl = false,
+			MaxBounds = Tuple.Create<LatLng, LatLng>(new LatLng(58.6784f, 49.4508f), new LatLng(58.545f, 49.8065f))
+		};
+		_map.OnInitialized += () =>
+		{
+			_mapController = new MapController(_jsRuntime, _clientFactory, _map);
+			mapReady = true;
+		};
+
+		_map.RaiseOnInitialized();
+	}
+
+	public void showRouteOnMap(Route route)
+	{
+		if (mapReady)
+		{
+			var parameters = new DialogParameters { ["route"] = route, ["mapController"] = _mapController };
+			var options = new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true };
+
+			DialogService.Show<MapDialog>("Map", parameters, options);
+		}
+	}
+
+
+}

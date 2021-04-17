@@ -46,8 +46,9 @@ namespace Courier_service.Pages
         public void DownloadLists()
         {
             orders = (from order in _databaseService._dbcontext.Orders
-                     where order.ClientId == client.Id
-                     select order).ToList<Order>();
+                      where order.ClientId == client.Id
+                      orderby order.Id descending
+                      select order).ToList<Order>();
 
 
             foreach (Order o in orders)
@@ -64,12 +65,16 @@ namespace Courier_service.Pages
                            where o.RouteId == route.Id
                            select route).First<Route>();
 
+                o.Comments = (from comment in _databaseService._dbcontext.Comments
+                              where comment.OrderId == o.Id
+                              select comment).ToList<Comment>();
+
                 var deliveries = from delivery in _databaseService._dbcontext.Deliveries
-                              where delivery.OrderId == o.Id
-                              select delivery;
+                                 where delivery.OrderId == o.Id
+                                 select delivery;
 
                 if (deliveries.Count<Delivery>() > 0)
-                { 
+                {
                     o.Delivery = deliveries.First<Delivery>();
                     o.Delivery.Order = o;
                     o.Delivery.Courier = (from courier in _databaseService._dbcontext.Couriers

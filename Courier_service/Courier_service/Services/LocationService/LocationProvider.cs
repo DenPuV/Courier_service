@@ -46,6 +46,18 @@ namespace Courier_service.Services.LocationService
                 return null;
             }
         }
+        public List<LatLng> GetRoute(string addr1, string addr2)
+        {
+            try
+            {
+                
+                return RouteRequest(LocationProvider.makeLngLatString(addr1), LocationProvider.makeLngLatString(addr2)).Result;
+            }
+            catch 
+            {
+                return null;
+            }
+        }
 
         private async Task<Address> AddressRequest(string URL)
         {
@@ -86,6 +98,43 @@ namespace Courier_service.Services.LocationService
             }
 
             return address;
+        }
+        private async Task<List<LatLng>> RouteRequest(LatLng start, LatLng finish)
+        {
+            List<LatLng> latlngs = new List<LatLng>();
+            string url = $"https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf62483b8f5face1784d6db2e00f98ba26a2a9" +
+                $"&start={start.Lat.ToString().Replace(',', '.')},{start.Lng.ToString().Replace(',', '.')}" +
+                $"&end={finish.Lat.ToString().Replace(',', '.')},{finish.Lng.ToString().Replace(',', '.')}";
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            request.Headers.Add("Accept", "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8");
+            request.Headers.Add("Authorization", "5b3ce3597851110001cf62483b8f5face1784d6db2e00f98ba26a2a9");
+            var client = _clientFactory.CreateClient();
+            var response = client.Send(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var customerJsonString = await response.Content.ReadAsStringAsync();
+                try
+                {
+                    dynamic results = JsonConvert.DeserializeObject<dynamic>(customerJsonString);
+                    dynamic coordinates = results.features[0].geometry.coordinates;
+                    if (coordinates != null)
+                    {
+                        foreach (dynamic coordinate in coordinates)
+                        {
+                            latlngs.Add(new LatLng((float)coordinate[0], (float)coordinate[1]));
+                        }
+                    }
+                    
+                }
+                catch { latlngs = null; }
+            }
+            else
+            {
+                latlngs = null;
+            }
+
+            return latlngs;
         }
 
         public async Task<string> GetRouteString(Address addr1, Address addr2)
@@ -130,21 +179,36 @@ namespace Courier_service.Services.LocationService
         {
             return $"[[{latlng1.Lat.ToString().Replace(',', '.')},{latlng1.Lng.ToString().Replace(',', '.')}],[{latlng2.Lat.ToString().Replace(',', '.')},{latlng2.Lng.ToString().Replace(',', '.')}]]";
         }
-        public static string makePath(LatLng[] latlngs)
+        public static string makePath(List<LatLng> latlngs)
         {
             string str = "[";
-
-            foreach (LatLng l in latlngs)
+            if (latlngs != null)
             {
-                str += $"[{l.Lat.ToString().Replace(',', '.')},{l.Lng.ToString().Replace(',', '.')}],";
+                foreach (LatLng l in latlngs)
+                {
+                    str += $"[{l.Lng.ToString().Replace(',', '.')},{l.Lat.ToString().Replace(',', '.')}],";
+                }
+                str += "]";
+                str = str.Replace(",]", "]");
             }
-            str += "]";
-            str = str.Replace(",]", "]");
             return str;
         }
         public static string makeStringLatlng(LatLng ll)
         {
             return $"[{ll.Lat.ToString().Replace(',', '.')},{ll.Lng.ToString().Replace(',', '.')}]";
+        }
+        public static LatLng makeLngLatString(string ll)
+        {
+            try
+            {
+                dynamic results = JsonConvert.DeserializeObject<dynamic>(ll);
+                LatLng latlng = new LatLng((float)results[1], (float)results[0]);
+                return latlng;
+            }
+            catch 
+            {
+                return null;
+            }
         }
     }
 }

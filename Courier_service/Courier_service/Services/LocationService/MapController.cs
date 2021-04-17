@@ -23,6 +23,7 @@ namespace Courier_service.Services.LocationService
         private Address currentAddress = null;
         private LocationProvider locationProvider;
 
+        public Map Map { get { return _map; } }
         private List<Marker> markers { get; set; } = new List<Marker>();
         public delegate void Event();
         private List<string> polyLines = new List<string>();
@@ -131,7 +132,6 @@ namespace Courier_service.Services.LocationService
         {
             string pathId = StringHelper.GetRandomString(10);
             polyLines.Add(pathId);
-
             await Task.Run(() =>
             {
                 _jsRuntime.InvokeVoidAsync("addPolyLineAndBound", new object[] { _map.Id.ToString(), path, pathId, "" });

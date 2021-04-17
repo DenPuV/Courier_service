@@ -30,16 +30,8 @@ namespace Courier_service.Services.LocationService
         public string lon { get { return (Lng.HasValue) ? Lng.Value.ToString() : ""; } set { Lng = float.Parse(value, CultureInfo.InvariantCulture.NumberFormat); } }
         public string country { get; set; }
         public string region { get; set; }
-        public string state { get; set; }
         public string county { get; set; }
-        public string city { get; set; }
-        public string town { get; set; }
-        public string village { get; set; }
-        public string road { get; set; }
-        public string building { get; set; }
         public string display_name { get; set; } = "";
-        public string icon { get; set; }
-        public List<PointF> boundings { get; set; }
 
         public override string ToString()
         {
@@ -84,5 +76,7 @@ namespace Courier_service.Services.LocationService
             }
             else return false;
         }
+
+        
     }
 }

@@ -225,3 +225,11 @@ D:\Курьерская служба\Courier_service\Courier_service\Courier_ser
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\Razor\Pages\NewOrder.razor.g.cs
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\RazorDeclaration\Pages\Orderslist.razor.g.cs
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\Razor\Pages\Orderslist.razor.g.cs
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\RazorDeclaration\Shared\LeaveCommentDialog.razor.g.cs
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\Razor\Shared\LeaveCommentDialog.razor.g.cs
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\RazorDeclaration\Shared\MapDialog.razor.g.cs
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\Razor\Shared\MapDialog.razor.g.cs
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\RazorDeclaration\Shared\AcceptDialog.razor.g.cs
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\Razor\Shared\AcceptDialog.razor.g.cs
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\RazorDeclaration\Pages\CourierOrders.razor.g.cs
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\Razor\Pages\CourierOrders.razor.g.cs
