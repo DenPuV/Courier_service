@@ -2,6 +2,42 @@
   "version": 3,
   "targets": {
     "net5.0": {
+      "AspNet.Security.OAuth.GitHub/5.0.4": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0/AspNet.Security.OAuth.GitHub.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/AspNet.Security.OAuth.GitHub.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
+      "AspNet.Security.OAuth.Vkontakte/5.0.4": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0/AspNet.Security.OAuth.Vkontakte.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/AspNet.Security.OAuth.Vkontakte.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
+      "AspNet.Security.OAuth.Yandex/5.0.4": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0/AspNet.Security.OAuth.Yandex.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/AspNet.Security.OAuth.Yandex.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "BrowserInterop/1.1.2": {
         "type": "package",
         "dependencies": {
@@ -3049,6 +3085,48 @@
     }
   },
   "libraries": {
+    "AspNet.Security.OAuth.GitHub/5.0.4": {
+      "sha512": "Q5abff1Xb8qxpM5W9BN7BRyZxK3v4KY5jIYMAamu2PNQDay1T1GA8ldZK5zfSExfZSH07v1qEFPHnC/F7zvNeA==",
+      "type": "package",
+      "path": "aspnet.security.oauth.github/5.0.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "aspnet.security.oauth.github.5.0.4.nupkg.sha512",
+        "aspnet.security.oauth.github.nuspec",
+        "lib/net5.0/AspNet.Security.OAuth.GitHub.dll",
+        "lib/net5.0/AspNet.Security.OAuth.GitHub.xml"
+      ]
+    },
+    "AspNet.Security.OAuth.Vkontakte/5.0.4": {
+      "sha512": "nHvwMjY/WF/00prHewS1SC+97jzIb2LdtQHOAS1HwFLlzmPEO5gKF3H776RgCGNWLsEcUIOCUOSL9HC3fgrQww==",
+      "type": "package",
+      "path": "aspnet.security.oauth.vkontakte/5.0.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "aspnet.security.oauth.vkontakte.5.0.4.nupkg.sha512",
+        "aspnet.security.oauth.vkontakte.nuspec",
+        "lib/net5.0/AspNet.Security.OAuth.Vkontakte.dll",
+        "lib/net5.0/AspNet.Security.OAuth.Vkontakte.xml"
+      ]
+    },
+    "AspNet.Security.OAuth.Yandex/5.0.4": {
+      "sha512": "XTKu/C2MOzQzUTcxwIVTiwNIbv029DmN53p/iTyFDUt2BkTuQyv1HknzWaHtaYZ+CqIJehd06CiB6nfBv14TSw==",
+      "type": "package",
+      "path": "aspnet.security.oauth.yandex/5.0.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "aspnet.security.oauth.yandex.5.0.4.nupkg.sha512",
+        "aspnet.security.oauth.yandex.nuspec",
+        "lib/net5.0/AspNet.Security.OAuth.Yandex.dll",
+        "lib/net5.0/AspNet.Security.OAuth.Yandex.xml"
+      ]
+    },
     "BrowserInterop/1.1.2": {
       "sha512": "7BSD3iclsfKftdY2etSDdPFnkK0+etvXILsOkuFXDpP8Z7J1SLuJsbS/ydE+i3iZXPF7CiBChaOonJE1noE/PQ==",
       "type": "package",
@@ -9858,6 +9936,9 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "AspNet.Security.OAuth.GitHub >= 5.0.4",
+      "AspNet.Security.OAuth.Vkontakte >= 5.0.4",
+      "AspNet.Security.OAuth.Yandex >= 5.0.4",
       "BrowserInterop >= 1.1.2",
       "EntityFramework6.Npgsql >= 6.4.1",
       "GeoCoordinate.NetCore >= 1.0.0.1",
@@ -9913,6 +9994,18 @@
       "net5.0": {
         "targetAlias": "net5.0",
         "dependencies": {
+          "AspNet.Security.OAuth.GitHub": {
+            "target": "Package",
+            "version": "[5.0.4, )"
+          },
+          "AspNet.Security.OAuth.Vkontakte": {
+            "target": "Package",
+            "version": "[5.0.4, )"
+          },
+          "AspNet.Security.OAuth.Yandex": {
+            "target": "Package",
+            "version": "[5.0.4, )"
+          },
           "BrowserInterop": {
             "target": "Package",
             "version": "[1.1.2, )"

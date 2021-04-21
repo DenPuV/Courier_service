@@ -26,6 +26,7 @@ namespace Courier_service.Components
 		public string SendAddress { get; set; }
 		public string RecAddress { get; set; } = "";
         public double distance { get; set; } = 0;
+        public string price = "";
         public bool invalid { get; set; } = true;
 
         public async void CalculateDistance()
@@ -45,9 +46,9 @@ namespace Courier_service.Components
 
                     if (sAddr != null && dAddr != null)
                     {
-                        mapVisible = true;
                         distance = LocationDistance.DistanceBetweenPlaces(sAddr.GetLatLng(), dAddr.GetLatLng());
                         showPath(sAddr, dAddr);
+                        price = (distance * 0.1).ToString("N0");
                     }
                     else
                     {
@@ -65,9 +66,8 @@ namespace Courier_service.Components
                         distance = 0;
                     }
                     downloading = false;
-                    validate();
-                    InvokeAsync(() => { StateHasChanged(); });
                 });
+                StateHasChanged();
             }
         }
 

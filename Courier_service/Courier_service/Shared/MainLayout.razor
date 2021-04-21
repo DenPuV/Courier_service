@@ -1,20 +1,24 @@
 ﻿@inherits LayoutComponentBase
 @using Courier_service.Components
 
+<MudThemeProvider Theme="currentTheme" />
+
 <AuthorizeView>
 	<Authorized>
 		<MudLayout>
 			<MudSwipeArea OnSwipe="@OnSwipe" Style="width: 100%;">
 				<MudAppBar Elevation="1">
 					<MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+					<MudText Typo="Typo.h5">Courier service</MudText>
 					<MudAppBarSpacer />
+					<MudButton Color="Color.Inherit" OnClick="@((e) => DarkMode())"><MudIcon Icon="@icon" /></MudButton>
 					<LoginDisplay />
 				</MudAppBar>
 				<MudDrawer @bind-Open="@open" Elevation="1">
 					<NavMenu />
 				</MudDrawer>
-				<MudMainContent Class="pt-16 px-16">
-					<MudContainer Class="mt-6">
+				<MudMainContent Class="pt-16">
+					<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-6">
 						@Body
 					</MudContainer>
 				</MudMainContent>
@@ -28,6 +32,7 @@
 
 @code{
 	bool open = false;
+	string icon = Icons.Filled.Brightness4;
 
 	void ToggleDrawer()
 	{
@@ -47,4 +52,53 @@
 			StateHasChanged();
 		}
 	}
+
+	protected override void OnInitialized()
+	{
+		currentTheme = defaultTheme;
+	}
+
+	void DarkMode()
+	{
+		if (currentTheme == defaultTheme)
+		{
+			currentTheme = darkTheme;
+			icon = Icons.Filled.Brightness5;
+		}
+		else
+		{
+			currentTheme = defaultTheme;
+			icon = Icons.Filled.Brightness4;
+		}
+	}
+
+	MudTheme currentTheme = new MudTheme();
+	MudTheme defaultTheme = new MudTheme()
+	{
+		Palette = new Palette()
+		{
+			Black = "#272c34"
+		}
+	};
+
+	MudTheme darkTheme = new MudTheme()
+	{
+		Palette = new Palette()
+		{
+			Black = "#27272f",
+			Background = "#32333d",
+			BackgroundGrey = "#27272f",
+			Surface = "#373740",
+			DrawerBackground = "#27272f",
+			DrawerText = "rgba(255,255,255, 0.50)",
+			DrawerIcon = "rgba(255,255,255, 0.50)",
+			AppbarBackground = "#27272f",
+			AppbarText = "rgba(255,255,255, 0.70)",
+			TextPrimary = "rgba(255,255,255, 0.70)",
+			TextSecondary = "rgba(255,255,255, 0.50)",
+			ActionDefault = "#adadb1",
+			ActionDisabled = "rgba(255,255,255, 0.26)",
+			ActionDisabledBackground = "rgba(255,255,255, 0.12)"
+		}
+	};
 }

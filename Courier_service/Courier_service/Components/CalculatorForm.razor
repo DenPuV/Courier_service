@@ -20,9 +20,9 @@
 		{
 			<MudProgressCircular Color="Color.Primary" Indeterminate="true" />
 		}
-		else if (distance > 0 && !downloading)
+		@if (distance > 0)
 		{
-			<MudText>Сумма: @((distance * 0.25).ToString("N0")) рублей</MudText>
+			<MudText>from @price ₽</MudText>
 		}
 		<MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@invalid" Class="ml-auto" @onclick="CalculateDistance">Calculate</MudButton>
 	</MudCardActions>

@@ -33,6 +33,9 @@
     ".NETCoreApp,Version=v5.0": {
       "Courier_service/1.0.0": {
         "dependencies": {
+          "AspNet.Security.OAuth.GitHub": "5.0.4",
+          "AspNet.Security.OAuth.Vkontakte": "5.0.4",
+          "AspNet.Security.OAuth.Yandex": "5.0.4",
           "BrowserInterop": "1.1.2",
           "EntityFramework6.Npgsql": "6.4.1",
           "GeoCoordinate.NetCore": "1.0.0.1",
@@ -323,6 +326,39 @@
         },
         "compile": {
           "Courier_service.dll": {}
+        }
+      },
+      "AspNet.Security.OAuth.GitHub/5.0.4": {
+        "runtime": {
+          "lib/net5.0/AspNet.Security.OAuth.GitHub.dll": {
+            "assemblyVersion": "5.0.4.0",
+            "fileVersion": "5.0.421.20756"
+          }
+        },
+        "compile": {
+          "lib/net5.0/AspNet.Security.OAuth.GitHub.dll": {}
+        }
+      },
+      "AspNet.Security.OAuth.Vkontakte/5.0.4": {
+        "runtime": {
+          "lib/net5.0/AspNet.Security.OAuth.Vkontakte.dll": {
+            "assemblyVersion": "5.0.4.0",
+            "fileVersion": "5.0.421.20756"
+          }
+        },
+        "compile": {
+          "lib/net5.0/AspNet.Security.OAuth.Vkontakte.dll": {}
+        }
+      },
+      "AspNet.Security.OAuth.Yandex/5.0.4": {
+        "runtime": {
+          "lib/net5.0/AspNet.Security.OAuth.Yandex.dll": {
+            "assemblyVersion": "5.0.4.0",
+            "fileVersion": "5.0.421.20756"
+          }
+        },
+        "compile": {
+          "lib/net5.0/AspNet.Security.OAuth.Yandex.dll": {}
         }
       },
       "BrowserInterop/1.1.2": {
@@ -4212,6 +4248,27 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "AspNet.Security.OAuth.GitHub/5.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Q5abff1Xb8qxpM5W9BN7BRyZxK3v4KY5jIYMAamu2PNQDay1T1GA8ldZK5zfSExfZSH07v1qEFPHnC/F7zvNeA==",
+      "path": "aspnet.security.oauth.github/5.0.4",
+      "hashPath": "aspnet.security.oauth.github.5.0.4.nupkg.sha512"
+    },
+    "AspNet.Security.OAuth.Vkontakte/5.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-nHvwMjY/WF/00prHewS1SC+97jzIb2LdtQHOAS1HwFLlzmPEO5gKF3H776RgCGNWLsEcUIOCUOSL9HC3fgrQww==",
+      "path": "aspnet.security.oauth.vkontakte/5.0.4",
+      "hashPath": "aspnet.security.oauth.vkontakte.5.0.4.nupkg.sha512"
+    },
+    "AspNet.Security.OAuth.Yandex/5.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XTKu/C2MOzQzUTcxwIVTiwNIbv029DmN53p/iTyFDUt2BkTuQyv1HknzWaHtaYZ+CqIJehd06CiB6nfBv14TSw==",
+      "path": "aspnet.security.oauth.yandex/5.0.4",
+      "hashPath": "aspnet.security.oauth.yandex.5.0.4.nupkg.sha512"
     },
     "BrowserInterop/1.1.2": {
       "type": "package",

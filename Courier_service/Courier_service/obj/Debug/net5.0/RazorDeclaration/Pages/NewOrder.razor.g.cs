@@ -261,10 +261,10 @@ using Courier_service.Services.LocationService;
 	{
 		if (selectedWeight != String.Empty)
 		{
-			if (selectedWeight == "< 1 kg") price = Convert.ToDecimal( distance * 0.3);
-			else if (selectedWeight == "1 < 5 kg") price = Convert.ToDecimal( distance * 0.4);
-			else if (selectedWeight == "5 < 10 kg") price = Convert.ToDecimal( distance * 0.5);
-			else price = Convert.ToDecimal( distance);
+			if (selectedWeight == "< 1 kg") price = Convert.ToDecimal( distance * 0.1);
+			else if (selectedWeight == "1 < 5 kg") price = Convert.ToDecimal( distance * 0.2);
+			else if (selectedWeight == "5 < 10 kg") price = Convert.ToDecimal( distance * 0.4);
+			else price = Convert.ToDecimal( distance * 0.6);
 		}
 		StateHasChanged();
 	}

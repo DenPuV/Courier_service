@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Courier_service.Models;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Components;
 
 namespace Courier_service.Areas.Identity.Pages.Account.Manage
 {
@@ -59,6 +61,7 @@ namespace Courier_service.Areas.Identity.Pages.Account.Manage
             var client = from c in _serviceContext.Clients
                          where c.AspName == user.Id
                          select c;
+
             if (client.Count() > 0) Client = client.First();
 
             Username = userName;
@@ -90,6 +93,7 @@ namespace Courier_service.Areas.Identity.Pages.Account.Manage
             var client = from c in _serviceContext.Clients
                          where c.AspName == user.Id
                          select c;
+
             if (client.Count() > 0)
             {
                 Client = client.First();
@@ -108,15 +112,25 @@ namespace Courier_service.Areas.Identity.Pages.Account.Manage
                 };
                 _dbs.AddClient(Client);
             }
-            else if(user != null)
+            else if(Client != null && user != null)
             {
                 Client.FName = Input.FName;
                 Client.SName = Input.SName;
                 Client.Patronymic = Input.Patronymic;
                 _dbs.UpdateClient(Client);
             }
+            //Console.WriteLine(Client.FName + "|");
+            //Console.WriteLine(Client.SName + "|");
+            //Console.WriteLine(Client.Patronymic + "|");
+            //Console.WriteLine(Client.AspName + "|");
+            //Console.WriteLine(Client.Deleted + "|");
+            //_serviceContext.SaveChanges();
             try { _dbs.SaveData(); }
-            catch { StatusMessage = "Unexpected error when trying to set client data."; return Page(); }
+            catch
+            {
+                StatusMessage = "Unexpected error when trying to set client data.";
+                return Page();
+            }
 
             if (user == null)
             {

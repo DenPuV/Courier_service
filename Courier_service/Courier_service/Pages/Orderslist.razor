@@ -19,83 +19,82 @@
 
 @if (dataLoaded)
 {
-	foreach (var order in orders)
+<MudGrid Class="align-center">
+	@foreach (var order in orders)
 	{
-		<MudGrid>
-			<MudItem xs="12">
-				<MudPaper Class="d-flex align-center mud-full-width px-4 py-4" Elevation="3">
-					<MudGrid Spacing="3">
-						<MudItem Class="p-xs-1 p-md-4 align-center" xs="12">
-							<MudText Typo="Typo.h5">Order №@order.Id</MudText>
-							<MudText Typo="Typo.body2">@order.Date</MudText>
-						</MudItem>
-						<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" md="6" lg="3">
-							<MudText Typo="Typo.h6">Package</MudText>
-							<MudText Typo="Typo.body1">@order.Package.Description</MudText>
-							<MudText Typo="Typo.body2">Weight: @order.Package.Weight</MudText>
-						</MudItem>
-						<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" md="6" lg="3">
-							<MudText Typo="Typo.h6">Contact</MudText>
-							<MudText Typo="Typo.body1">@order.Contact.SName</MudText>
-							<MudText Typo="Typo.body1">@order.Contact.FName</MudText>
-							<MudText Typo="Typo.body1">@order.Contact.Patronymic</MudText>
-							<MudText Typo="Typo.body1">@order.Contact.Phone</MudText>
-						</MudItem>
-						<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" md="6" lg="3">
-							<MudText Typo="Typo.h6">Route</MudText>
-							<MudText Typo="Typo.body1">@order.Route.StartName</MudText>
-							<MudIcon Icon="@Icons.Filled.ArrowDownward" />
-							<MudText Typo="Typo.body1">@order.Route.FinishName</MudText>
-							<MudButton OnClick="@(() => { showRouteOnMap(order.Route); })" Variant="Variant.Filled"
-									   Class="m-2" Color="Color.Default">Show route</MudButton>
-						</MudItem>
-						<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" md="6" lg="3">
-							<MudText Typo="Typo.body1">Status: @order.Status</MudText>
-						</MudItem>
+		<MudItem xs="12">
+			<MudPaper Class="d-flex px-4 py-4" Elevation="3">
+				<MudGrid Spacing="3">
+					<MudItem Class="p-xs-1 p-md-4 align-center" xs="12">
+						<MudText Typo="Typo.h5">Order №@order.Id</MudText>
+						<MudText Typo="Typo.body2">@order.Date</MudText>
+					</MudItem>
+					<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" sm="6" lg="3">
+						<MudText Typo="Typo.h6">Package</MudText>
+						<MudText Typo="Typo.body1">@order.Package.Description</MudText>
+						<MudText Typo="Typo.body2">Weight: @order.Package.Weight</MudText>
+						<MudText Typo="Typo.body2">Price: @order.Price ₽</MudText>
+					</MudItem>
+					<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" sm="6" lg="3">
+						<MudText Typo="Typo.h6">Contact</MudText>
+						<MudText Typo="Typo.body1">@order.Contact.SName</MudText>
+						<MudText Typo="Typo.body1">@order.Contact.FName</MudText>
+						<MudText Typo="Typo.body1">@order.Contact.Patronymic</MudText>
+						<MudText Typo="Typo.body1">@order.Contact.Phone</MudText>
+					</MudItem>
+					<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" sm="6" lg="3">
+						<MudText Typo="Typo.h6">Route</MudText>
+						<MudText Typo="Typo.body1">@order.Route.StartName</MudText>
+						<MudIcon Icon="@Icons.Filled.ArrowDownward" />
+						<MudText Typo="Typo.body1">@order.Route.FinishName</MudText>
+						<MudButton OnClick="@(() => { showRouteOnMap(order.Route); })" Variant="Variant.Filled"
+								   Class="m-2" Color="Color.Default">Show route</MudButton>
+					</MudItem>
+					<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" sm="6" lg="3">
+						<MudText Typo="Typo.body1">Status: @order.Status</MudText>
 						@if (order.Delivery != null)
 						{
-							<MudItem Class="p-xs-1 p-md-4 align-center" xs="12">
 								<MudText Typo="Typo.h6">Delivery</MudText>
 								<MudText Typo="Typo.body1">Delivery start at @order.Date.ToShortDateString()</MudText>
 								<MudText Typo="Typo.body1">Courier: @order.Delivery.Courier.ToString()</MudText>
+						}
+					</MudItem>
+					@if (order.Comments.Count > 0)
+					{
+						<MudText Class="p-xs-1 p-md-4 align-center" Typo="Typo.h6">Comments</MudText>
+						foreach (Comment comment in order.Comments)
+						{
+							<MudItem Class="p-xs-1 p-md-4 align-center" xs="12">
+								<MudText Typo="Typo.body1">@comment.Content</MudText>
+								<MudText Typo="Typo.body2">@comment.Date</MudText>
+								<hr>
 							</MudItem>
 						}
-						@if (order.Comments.Count > 0)
-						{
-							<MudText Class="p-xs-1 p-md-4 align-center" Typo="Typo.h6">Comments</MudText>
-							foreach (Comment comment in order.Comments)
+					}
+					@if (!(order.Status == "cancelled" || order.Status == "reversed" || order.Status == "delivered"))
+					{
+						<MudItem xs="12" sm="6">
+							<MudButton @onclick="@(() => OpenCommentDialog(order))"
+									   Color="Color.Default">Leave comment</MudButton>
+						</MudItem>
+						<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" sm="6">
+							@if (order.Status != "delivering" && order.Status != "return")
 							{
-								<MudItem Class="p-xs-1 p-md-4 align-center" xs="12">
-									<MudText Typo="Typo.body1">@comment.Content</MudText>
-									<MudText Typo="Typo.body2">@comment.Date</MudText>
-									<hr>
-								</MudItem>
+								<MudButton @onclick="@(() => CancellOrder(order))"
+										   Color="Color.Primary" Variant="Variant.Filled">Cancel order</MudButton>
 							}
-						}
-						@if (!(order.Status == "cancelled" || order.Status == "reversed" || order.Status == "delivered"))
-						{
-							<MudItem xs="12" md="6">
-								<MudButton @onclick="@(() => OpenCommentDialog(order))"
-										   Color="Color.Default">Leave comment</MudButton>
-							</MudItem>
-							<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" md="6">
-								@if (order.Status != "delivering" && order.Status != "return")
-								{
-									<MudButton @onclick="@(() => CancellOrder(order))"
-											   Color="Color.Primary" Variant="Variant.Filled">Cancel order</MudButton>
-								}
-								else if (order.Status == "delivering")
-								{
-									<MudButton @onclick="@(() => ReverseOrder(order))"
-											   Color="Color.Primary" Variant="Variant.Filled">Return package</MudButton>
-								}
-							</MudItem>
-						}
-					</MudGrid>
-				</MudPaper>
-			</MudItem>
-		</MudGrid>
+							else if (order.Status == "delivering")
+							{
+								<MudButton @onclick="@(() => ReverseOrder(order))"
+										   Color="Color.Primary" Variant="Variant.Filled">Return package</MudButton>
+							}
+						</MudItem>
+					}
+				</MudGrid>
+			</MudPaper>
+		</MudItem>
 	}
+</MudGrid>
 }
 
 @code{

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\Курьерская служба\Courier_service_publish</_PublishTargetUrl>
+    <History>True|2021-04-21T12:50:58.3288426Z;True|2021-04-21T15:42:56.9536767+03:00;True|2021-04-21T12:05:52.0627379+03:00;True|2021-04-20T18:29:21.9999438+03:00;True|2021-04-19T10:38:37.9865613+03:00;True|2021-04-18T19:01:45.9268569+03:00;True|2021-04-18T15:18:49.9360569+03:00;</History>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="LinuxPostgreSQLConnection">
+      <Value>Server=140.238.218.40%3bPort=5432%3bDatabase=Courier_service%3bUser Id=postgres%3bPassword=230798</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

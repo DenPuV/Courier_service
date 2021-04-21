@@ -11,18 +11,17 @@ namespace Courier_service.Models
     {
         public ServiceContext(DbContextOptions<ServiceContext> options):base(options)
         {   
+
         }
-        public ServiceContext()
-        {
-            
-        }
+
+        public ServiceContext() { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=Courier_service;User Id=postgres;Password=230798");
-            }
+                optionsBuilder.UseNpgsql("Server=140.238.173.223;Port=5432;Database=Courier_service;User Id=postgres;Password=230798");
+            }//140.238.173.223
         }
 
         public DbSet<Client> Clients { get; set; }

@@ -109,11 +109,11 @@ namespace Courier_service.Pages
                 {
                     _databaseService.PlaceOrder(package, contact, route, client, price);
                     ShowSuccessSnackBar("Order placed succesfully!");
+                    _navigationManager.NavigateTo("/");
                 }
                 catch { ShowErrorSnackBar("Something went wrong while placing order!"); }
             }
             downloading = false;
-            _navigationManager.NavigateTo("/");
         }
 
         [Inject]

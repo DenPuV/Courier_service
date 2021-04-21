@@ -133,7 +133,7 @@ using Courier_service.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 101 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\Orderslist.razor"
+#line 100 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\Orderslist.razor"
       
 	[Inject]
 	IJSRuntime _jsRuntime { get; set; }

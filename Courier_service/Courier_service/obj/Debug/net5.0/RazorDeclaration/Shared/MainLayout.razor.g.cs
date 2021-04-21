@@ -104,9 +104,10 @@ using Courier_service.Components;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 29 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Shared\MainLayout.razor"
+#line 33 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Shared\MainLayout.razor"
       
 	bool open = false;
+	string icon = Icons.Filled.Brightness4;
 
 	void ToggleDrawer()
 	{
@@ -126,6 +127,55 @@ using Courier_service.Components;
 			StateHasChanged();
 		}
 	}
+
+	protected override void OnInitialized()
+	{
+		currentTheme = defaultTheme;
+	}
+
+	void DarkMode()
+	{
+		if (currentTheme == defaultTheme)
+		{
+			currentTheme = darkTheme;
+			icon = Icons.Filled.Brightness5;
+		}
+		else
+		{
+			currentTheme = defaultTheme;
+			icon = Icons.Filled.Brightness4;
+		}
+	}
+
+	MudTheme currentTheme = new MudTheme();
+	MudTheme defaultTheme = new MudTheme()
+	{
+		Palette = new Palette()
+		{
+			Black = "#272c34"
+		}
+	};
+
+	MudTheme darkTheme = new MudTheme()
+	{
+		Palette = new Palette()
+		{
+			Black = "#27272f",
+			Background = "#32333d",
+			BackgroundGrey = "#27272f",
+			Surface = "#373740",
+			DrawerBackground = "#27272f",
+			DrawerText = "rgba(255,255,255, 0.50)",
+			DrawerIcon = "rgba(255,255,255, 0.50)",
+			AppbarBackground = "#27272f",
+			AppbarText = "rgba(255,255,255, 0.70)",
+			TextPrimary = "rgba(255,255,255, 0.70)",
+			TextSecondary = "rgba(255,255,255, 0.50)",
+			ActionDefault = "#adadb1",
+			ActionDisabled = "rgba(255,255,255, 0.26)",
+			ActionDisabledBackground = "rgba(255,255,255, 0.12)"
+		}
+	};
 
 #line default
 #line hidden

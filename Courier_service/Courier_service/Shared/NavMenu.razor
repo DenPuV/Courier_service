@@ -2,7 +2,7 @@
 
 	<AuthorizeView Roles="Client">
 		<Authorized>
-			<MudText Typo="Typo.h4" Class="px-4">Client menu</MudText>
+			<MudText Typo="Typo.h4" Class="px-4 mt-2">Client menu</MudText>
 			<MudDivider Class="my-2" />
 			<MudNavGroup Title="Orders" Expanded="false">
 				<MudNavLink Icon="@Icons.Filled.List" Href="orderslist">Orders list</MudNavLink>
@@ -14,15 +14,15 @@
 
 	<AuthorizeView Roles="Courier">
 		<Authorized>
-			<MudText Typo="Typo.h4" Class="px-4">Courier menu</MudText>
+			<MudText Typo="Typo.h4" Class="px-4  mt-2">Courier menu</MudText>
 			<MudDivider Class="my-2" />
-			<MudNavLink Href="courierorders">Orders</MudNavLink>
+			<MudNavLink Icon="@Icons.Filled.Work" Href="courierorders">Orders</MudNavLink>
 		</Authorized>
 	</AuthorizeView>
 
 	<AuthorizeView>
 		<NotAuthorized>
-			<MudText Typo="Typo.h4" Class="px-4">User menu</MudText>
+			<MudText Typo="Typo.h4" Class="px-4  mt-2">User menu</MudText>
 			<MudDivider Class="my-2" />
 			<MudText>Enter all client data first!</MudText>
 			<MudNavLink Icon="@Icons.Filled.Settings" Href="Identity/Account/Manage">Client settings</MudNavLink>

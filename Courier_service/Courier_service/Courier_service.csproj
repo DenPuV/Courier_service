@@ -6,6 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="5.0.4" />
+    <PackageReference Include="AspNet.Security.OAuth.Vkontakte" Version="5.0.4" />
+    <PackageReference Include="AspNet.Security.OAuth.Yandex" Version="5.0.4" />
     <PackageReference Include="BrowserInterop" Version="1.1.2" />
     <PackageReference Include="EntityFramework6.Npgsql" Version="6.4.1" />
     <PackageReference Include="GeoCoordinate.NetCore" Version="1.0.0.1" />
@@ -30,5 +33,7 @@
       <HintPath>BlazorLeaflet\BlazorLeaflet.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

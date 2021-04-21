@@ -40,6 +40,18 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "AspNet.Security.OAuth.GitHub": {
+              "target": "Package",
+              "version": "[5.0.4, )"
+            },
+            "AspNet.Security.OAuth.Vkontakte": {
+              "target": "Package",
+              "version": "[5.0.4, )"
+            },
+            "AspNet.Security.OAuth.Yandex": {
+              "target": "Package",
+              "version": "[5.0.4, )"
+            },
             "BrowserInterop": {
               "target": "Package",
               "version": "[1.1.2, )"

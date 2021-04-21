@@ -1,40 +1,42 @@
 ﻿<AuthorizeView Roles="Client">
     <Authorized>
-        <MudLink Color="Color.Tertiary" href="Identity/Account/Manage"> 
-			<MudHidden Breakpoint="Breakpoint.SmAndDown"> Hello,</MudHidden> @context.User.Identity.Name
-			<MudHidden Breakpoint="Breakpoint.MdAndUp"><MudIcon Icon="@Icons.Filled.Settings" /></MudHidden>
-		</MudLink>
-        <form method="post" action="Identity/Account/LogOut">
-            <MudButton Variant="Variant.Text" ButtonType="ButtonType.Submit" EndIcon="@Icons.Filled.Logout" Color="Color.Tertiary">
-				<MudHidden Breakpoint="Breakpoint.SmAndDown">Log out</MudHidden>
-			</MudButton>
-        </form>
+		<MudButton Link="Identity/Account/Manage"
+				   Target="_self"
+				   Variant="Variant.Text"
+				   Color="Color.Inherit">
+			<MudHidden Breakpoint="Breakpoint.MdAndUp" Invert="true">Settings</MudHidden>
+			<MudIcon Icon="@Icons.Filled.Settings" />
+		</MudButton>
     </Authorized>
 	
 </AuthorizeView>
 
 <AuthorizeView Roles="Courier">
 	<Authorized>
-			<MudText Color="Color.Tertiary"><MudHidden Breakpoint="Breakpoint.SmAndDown">Hello, </MudHidden>@context.User.Identity.Name </MudText>
-			<form method="post" action="Identity/Account/LogOut">
-			<MudButton Variant="Variant.Text" ButtonType="ButtonType.Submit" EndIcon="@Icons.Filled.Logout" Color="Color.Tertiary">
-				<MudHidden Breakpoint="Breakpoint.SmAndDown">Log out</MudHidden>
-			</MudButton>
-		</form>
+		<MudText Color="Color.Inherit">
+			<MudHidden Breakpoint="Breakpoint.SmAndDown">Hello, </MudHidden>@context.User.Identity.Name 
+		</MudText>
 	</Authorized>
 </AuthorizeView>
 
 <AuthorizeView>
+	<Authorized>
+		<form method="post" action="Identity/Account/LogOut">
+			<MudButton Variant="Variant.Text" ButtonType="ButtonType.Submit" EndIcon="@Icons.Filled.Logout" Color="Color.Inherit">
+				<MudHidden Breakpoint="Breakpoint.SmAndDown">Log out</MudHidden>
+			</MudButton>
+		</form>
+	</Authorized>
 	<NotAuthorized>
 		<MudButton Link="Identity/Account/Register"
 				   Target="_self"
 				   Variant="Variant.Text"
 				   EndIcon="@Icons.Filled.AppRegistration"
-				   Color="Color.Tertiary">Register</MudButton>
+				   Color="Color.Inherit">Register</MudButton>
 		<MudButton Link="Identity/Account/Login"
 				   Target="_self"
 				   Variant="Variant.Text"
 				   EndIcon="@Icons.Filled.Login"
-				   Color="Color.Tertiary">Log in</MudButton>
+				   Color="Color.Inherit">Log in</MudButton>
 	</NotAuthorized>
 </AuthorizeView>

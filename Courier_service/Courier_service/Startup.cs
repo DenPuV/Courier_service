@@ -17,7 +17,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using MudBlazor.Services;
 using Courier_service.Models;
-using Courier_service.Services.LocationService;
+using Microsoft.AspNetCore.HttpOverrides;
+using AspNet.Security.OAuth.Vkontakte;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 
 namespace Courier_service
 {
@@ -36,10 +39,10 @@ namespace Courier_service
         {
             services.AddDbContext<ServiceContext>(options => 
                 options.UseNpgsql(
-                    Configuration.GetConnectionString("PostgreSQLConnection")));
+                    Configuration.GetConnectionString("LinuxPostgreSQLConnection")));
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("LinuxPostgreSQLConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -50,6 +53,28 @@ namespace Courier_service
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddMudServices();
             services.AddHttpClient();
+            services.AddAuthentication(options => { })
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/signin";
+                    options.LogoutPath = "/signout";
+                })
+                .AddVkontakte(options =>
+                {
+                    options.ClientId = "***";
+                    options.ClientSecret = "***";
+                })
+                .AddYandex(options =>
+                {
+                    options.ClientId = "***";
+                    options.ClientSecret = "***";
+                })
+                .AddGitHub(options =>
+                {
+                    options.ClientId = "***";
+                    options.ClientSecret = "***";
+                    //secret ***
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,10 +92,15 @@ namespace Courier_service
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
             app.UseAuthentication();
             app.UseAuthorization();

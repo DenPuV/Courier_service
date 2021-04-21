@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "21WZHmBnqpDH8YIsGHdZn97GjwJBzv/TdDMLxDkSxfSfpEDpgmp9mp0Mzu+AWG6xnkmFggjHuiH1oSbNaKDAUQ==",
+  "dgSpecHash": "VL5huoQeCJpCgiljRmVNafApb9nDtJXgvpHqxqFXFVMtX/I3jKSB65gMsckKa2m5iA2OTr+cBRbETEu6AyvrBg==",
   "success": true,
   "projectFilePath": "D:\\Курьерская служба\\Courier_service\\Courier_service\\Courier_service\\Courier_service.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\DenpUV\\.nuget\\packages\\aspnet.security.oauth.github\\5.0.4\\aspnet.security.oauth.github.5.0.4.nupkg.sha512",
+    "C:\\Users\\DenpUV\\.nuget\\packages\\aspnet.security.oauth.vkontakte\\5.0.4\\aspnet.security.oauth.vkontakte.5.0.4.nupkg.sha512",
+    "C:\\Users\\DenpUV\\.nuget\\packages\\aspnet.security.oauth.yandex\\5.0.4\\aspnet.security.oauth.yandex.5.0.4.nupkg.sha512",
     "C:\\Users\\DenpUV\\.nuget\\packages\\browserinterop\\1.1.2\\browserinterop.1.1.2.nupkg.sha512",
     "C:\\Users\\DenpUV\\.nuget\\packages\\entityframework\\6.4.0\\entityframework.6.4.0.nupkg.sha512",
     "C:\\Users\\DenpUV\\.nuget\\packages\\entityframework6.npgsql\\6.4.1\\entityframework6.npgsql.6.4.1.nupkg.sha512",
