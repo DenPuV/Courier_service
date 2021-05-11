@@ -16,7 +16,7 @@
 </MudOverlay>
 
 <MudText Typo="Typo.h4">
-	Orders
+	Заказы
 </MudText>
 
 @if (dataLoaded)
@@ -26,7 +26,7 @@
 		<MudPaper Class="d-flex align-center mud-full-width px-4 py-4" Elevation="3">
 			<MudGrid>
 				<MudItem Class="p-xs-1 p-md-4 align-center" xs="12">
-					<MudText Typo="Typo.h5">Order №@order.Id</MudText>
+					<MudText Typo="Typo.h5">Заказ №@order.Id</MudText>
 					<MudText Typo="Typo.body2">@order.Date</MudText>
 				</MudItem>
 				<MudItem xs="12" lg="8">
@@ -42,25 +42,37 @@
 					}
 				</MudItem>
 				<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" lg="4">
-					<MudText Typo="Typo.h6">Contact</MudText>
+					<MudText Typo="Typo.h6">Контакт</MudText>
 					<MudText Typo="Typo.body1">@order.Contact.SName</MudText>
 					<MudText Typo="Typo.body1">@order.Contact.FName</MudText>
 					<MudText Typo="Typo.body1">@order.Contact.Patronymic</MudText>
 					<MudText Typo="Typo.body1">@order.Contact.Phone</MudText>
 				</MudItem>
 				<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" md="6">
-					<MudText Typo="Typo.h6">Route</MudText>
+					<MudText Typo="Typo.h6">Маршрут</MudText>
 					<MudText Typo="Typo.body1">@order.Route.StartName</MudText>
 					<MudIcon Icon="@Icons.Filled.ArrowDownward" />
 					<MudText Typo="Typo.body1">@order.Route.FinishName</MudText>
 					<MudButton OnClick="@(() => ShowRoute(route))" Variant="Variant.Filled"
-							   Class="m-2" Color="Color.Default">Show route</MudButton>
+							   Class="m-2" Color="Color.Default">Показать маршрут</MudButton>
 				</MudItem>
 				<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" md="6">
 					<MudButton @onclick="@(() => CompleteDelivery())" Variant="Variant.Filled" Color="Color.Primary">
-						Complete delivery
+						Завершить заказ
 					</MudButton>
 				</MudItem>
+				@if (order.Comments.Count > 0)
+				{
+					<MudText Class="p-xs-1 p-md-4 align-center" Typo="Typo.h6">Комментарии</MudText>
+					foreach (Comment comment in order.Comments)
+					{
+						<MudItem Class="p-xs-1 p-md-4 align-center" xs="12">
+							<MudText Typo="Typo.body1">@comment.Content</MudText>
+							<MudText Typo="Typo.body2">@comment.Date</MudText>
+							<hr>
+						</MudItem>
+					}
+				}
 			</MudGrid>
 		</MudPaper>
 	}
@@ -73,30 +85,30 @@
 					<MudPaper Class="d-flex align-center mud-full-width px-4 py-4" Elevation="3">
 						<MudGrid Spacing="3">
 							<MudItem Class="p-xs-1 p-md-4 align-center" xs="12">
-								<MudText Typo="Typo.h5">Order №@ord.Id</MudText>
+								<MudText Typo="Typo.h5">Заказ №@ord.Id</MudText>
 								<MudText Typo="Typo.body2">@ord.Date</MudText>
 							</MudItem>
 							<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" md="6">
-								<MudText Typo="Typo.h6">Route</MudText>
+								<MudText Typo="Typo.h6">Маршрут</MudText>
 								<MudText Typo="Typo.body1">@ord.Route.StartName</MudText>
 								<MudIcon Icon="@Icons.Filled.ArrowDownward" />
 								<MudText Typo="Typo.body1">@ord.Route.FinishName</MudText>
 								<MudButton OnClick="@(() => { showRouteOnMap(ord.Route); })" Variant="Variant.Filled"
-										   Class="m-2" Color="Color.Default">Show route</MudButton>
+										   Class="m-2" Color="Color.Default">Показать маршрут</MudButton>
 							</MudItem>
 							<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" md="6">
-								<MudText Typo="Typo.h6">Weight</MudText>
+								<MudText Typo="Typo.h6">Вес</MudText>
 								<MudText Typo="Typo.body1">@ord.Type</MudText>
 							</MudItem>
 							<MudItem xs="12">
-								<MudButton @onclick="@(() => StartDelivering(ord))" Variant="Variant.Filled" Color="Color.Primary">Start delivering</MudButton>
+								<MudButton @onclick="@(() => StartDelivering(ord))" Variant="Variant.Filled" Color="Color.Primary">Начать доставку</MudButton>
 							</MudItem>
 						</MudGrid>
 					</MudPaper>
 				</MudItem>
 			</MudGrid>
 		}
-		<MudText Typo="Typo.h6">No more orders</MudText>
+		<MudText Typo="Typo.h6">Больше нет заказов</MudText>
 	}
 }
 

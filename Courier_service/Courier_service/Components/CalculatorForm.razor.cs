@@ -85,7 +85,7 @@ namespace Courier_service.Components
             _mapController.AddPathAndBound($"[[{addr1.GetLatLng().Lat.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"))}" +
                 $",{addr1.GetLatLng().Lng.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"))}]" +
                 $",[{addr2.GetLatLng().Lat.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"))}" +
-                $",{addr2.GetLatLng().Lng.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"))}]]", "Distance = " + distance.ToString("N0") + " m.");
+                $",{addr2.GetLatLng().Lng.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"))}]]", "Расстояние: " + distance.ToString("N0") + " м.");
 		}
     }
 }

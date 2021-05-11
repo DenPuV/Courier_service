@@ -192,9 +192,9 @@ using Courier_service.Models;
 
 	private async void CancellOrder(Order order)
 	{
-		var parameters = new DialogParameters { ["content"] = "Cancel order?"};
+		var parameters = new DialogParameters { ["content"] = "Закрыть заказ?"};
 
-		MudBlazor.DialogResult dr = await DialogService.Show<AcceptDialog>("You sure?", parameters).Result;
+		MudBlazor.DialogResult dr = await DialogService.Show<AcceptDialog>("Точно?", parameters).Result;
 
 		if (dr.Cancelled == false && (bool)dr.Data == true)
 		{
@@ -202,10 +202,10 @@ using Courier_service.Models;
 			{
 				if (_databaseService.CancellOrder(order) != null)
 				{
-					Snackbar.Add("Order cancelled!", Severity.Success);
+					Snackbar.Add("Заказ закрыт!", Severity.Success);
 					InvokeAsync(() => StateHasChanged());
 				}
-				else Snackbar.Add("Order not found!", Severity.Error);
+				else Snackbar.Add("Заказ не найден!", Severity.Error);
 
 			}
 			catch (Exception e)
@@ -217,16 +217,16 @@ using Courier_service.Models;
 
 	private async void ReverseOrder(Order order)
 	{
-		var parameters = new DialogParameters { ["content"] = "Reverse order?" };
+		var parameters = new DialogParameters { ["content"] = "Вернуть заказ?" };
 
-		MudBlazor.DialogResult dr = await DialogService.Show<AcceptDialog>("You sure?", parameters).Result;
+		MudBlazor.DialogResult dr = await DialogService.Show<AcceptDialog>("Точно?", parameters).Result;
 
 		if (dr.Cancelled == false && (bool)dr.Data == true)
 		{
 			try
 			{
 				_databaseService.PlaceReverseOrder(order);
-				Snackbar.Add("Oreder reversed!", Severity.Success);
+				Snackbar.Add("Заказ возвращается!", Severity.Success);
 
 			}
 			catch (Exception e)

@@ -12,7 +12,7 @@
 @inject IDialogService DialogService
 @inject ISnackbar Snackbar
 
-<MudText Class="mb-4" Typo="Typo.h3">Orders list</MudText>
+<MudText Class="mb-4" Typo="Typo.h3">Список заказов</MudText>
 <MudOverlay Visible="@downloading" DarkBackground="true" Absolute="false" ZIndex="2000">
 	<MudProgressCircular Color="Color.Primary" Indeterminate="true" />
 </MudOverlay>
@@ -26,42 +26,42 @@
 			<MudPaper Class="d-flex px-4 py-4" Elevation="3">
 				<MudGrid Spacing="3">
 					<MudItem Class="p-xs-1 p-md-4 align-center" xs="12">
-						<MudText Typo="Typo.h5">Order №@order.Id</MudText>
+						<MudText Typo="Typo.h5">Заказ №@order.Id</MudText>
 						<MudText Typo="Typo.body2">@order.Date</MudText>
 					</MudItem>
 					<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" sm="6" lg="3">
-						<MudText Typo="Typo.h6">Package</MudText>
+						<MudText Typo="Typo.h6">Посылка</MudText>
 						<MudText Typo="Typo.body1">@order.Package.Description</MudText>
-						<MudText Typo="Typo.body2">Weight: @order.Package.Weight</MudText>
-						<MudText Typo="Typo.body2">Price: @order.Price ₽</MudText>
+						<MudText Typo="Typo.body2">Вес: @order.Package.Weight</MudText>
+						<MudText Typo="Typo.body2">Стоимость: @order.Price ₽</MudText>
 					</MudItem>
 					<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" sm="6" lg="3">
-						<MudText Typo="Typo.h6">Contact</MudText>
+						<MudText Typo="Typo.h6">Контакт</MudText>
 						<MudText Typo="Typo.body1">@order.Contact.SName</MudText>
 						<MudText Typo="Typo.body1">@order.Contact.FName</MudText>
 						<MudText Typo="Typo.body1">@order.Contact.Patronymic</MudText>
 						<MudText Typo="Typo.body1">@order.Contact.Phone</MudText>
 					</MudItem>
 					<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" sm="6" lg="3">
-						<MudText Typo="Typo.h6">Route</MudText>
+						<MudText Typo="Typo.h6">Маршрут</MudText>
 						<MudText Typo="Typo.body1">@order.Route.StartName</MudText>
 						<MudIcon Icon="@Icons.Filled.ArrowDownward" />
 						<MudText Typo="Typo.body1">@order.Route.FinishName</MudText>
 						<MudButton OnClick="@(() => { showRouteOnMap(order.Route); })" Variant="Variant.Filled"
-								   Class="m-2" Color="Color.Default">Show route</MudButton>
+								   Class="m-2" Color="Color.Default">Показать маршрут</MudButton>
 					</MudItem>
 					<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" sm="6" lg="3">
-						<MudText Typo="Typo.body1">Status: @order.Status</MudText>
+						<MudText Typo="Typo.body1">Статут: @order.Status</MudText>
 						@if (order.Delivery != null)
 						{
-								<MudText Typo="Typo.h6">Delivery</MudText>
-								<MudText Typo="Typo.body1">Delivery start at @order.Date.ToShortDateString()</MudText>
-								<MudText Typo="Typo.body1">Courier: @order.Delivery.Courier.ToString()</MudText>
+								<MudText Typo="Typo.h6">Доставка</MudText>
+								<MudText Typo="Typo.body1">Доствка началась в @order.Date.ToShortDateString()</MudText>
+								<MudText Typo="Typo.body1">Курьер: @order.Delivery.Courier.ToString()</MudText>
 						}
 					</MudItem>
 					@if (order.Comments.Count > 0)
 					{
-						<MudText Class="p-xs-1 p-md-4 align-center" Typo="Typo.h6">Comments</MudText>
+						<MudText Class="p-xs-1 p-md-4 align-center" Typo="Typo.h6">Комментарии</MudText>
 						foreach (Comment comment in order.Comments)
 						{
 							<MudItem Class="p-xs-1 p-md-4 align-center" xs="12">
@@ -75,18 +75,18 @@
 					{
 						<MudItem xs="12" sm="6">
 							<MudButton @onclick="@(() => OpenCommentDialog(order))"
-									   Color="Color.Default">Leave comment</MudButton>
+									   Color="Color.Default">Оставить комментарий</MudButton>
 						</MudItem>
 						<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" sm="6">
 							@if (order.Status != "delivering" && order.Status != "return")
 							{
 								<MudButton @onclick="@(() => CancellOrder(order))"
-										   Color="Color.Primary" Variant="Variant.Filled">Cancel order</MudButton>
+										   Color="Color.Primary" Variant="Variant.Filled">Закрыть заказ</MudButton>
 							}
 							else if (order.Status == "delivering")
 							{
 								<MudButton @onclick="@(() => ReverseOrder(order))"
-										   Color="Color.Primary" Variant="Variant.Filled">Return package</MudButton>
+										   Color="Color.Primary" Variant="Variant.Filled">Вернуть заказ</MudButton>
 							}
 						</MudItem>
 					}
@@ -155,9 +155,9 @@
 
 	private async void CancellOrder(Order order)
 	{
-		var parameters = new DialogParameters { ["content"] = "Cancel order?"};
+		var parameters = new DialogParameters { ["content"] = "Закрыть заказ?"};
 
-		MudBlazor.DialogResult dr = await DialogService.Show<AcceptDialog>("You sure?", parameters).Result;
+		MudBlazor.DialogResult dr = await DialogService.Show<AcceptDialog>("Точно?", parameters).Result;
 
 		if (dr.Cancelled == false && (bool)dr.Data == true)
 		{
@@ -165,10 +165,10 @@
 			{
 				if (_databaseService.CancellOrder(order) != null)
 				{
-					Snackbar.Add("Order cancelled!", Severity.Success);
+					Snackbar.Add("Заказ закрыт!", Severity.Success);
 					InvokeAsync(() => StateHasChanged());
 				}
-				else Snackbar.Add("Order not found!", Severity.Error);
+				else Snackbar.Add("Заказ не найден!", Severity.Error);
 
 			}
 			catch (Exception e)
@@ -180,16 +180,16 @@
 
 	private async void ReverseOrder(Order order)
 	{
-		var parameters = new DialogParameters { ["content"] = "Reverse order?" };
+		var parameters = new DialogParameters { ["content"] = "Вернуть заказ?" };
 
-		MudBlazor.DialogResult dr = await DialogService.Show<AcceptDialog>("You sure?", parameters).Result;
+		MudBlazor.DialogResult dr = await DialogService.Show<AcceptDialog>("Точно?", parameters).Result;
 
 		if (dr.Cancelled == false && (bool)dr.Data == true)
 		{
 			try
 			{
 				_databaseService.PlaceReverseOrder(order);
-				Snackbar.Add("Oreder reversed!", Severity.Success);
+				Snackbar.Add("Заказ возвращается!", Severity.Success);
 
 			}
 			catch (Exception e)

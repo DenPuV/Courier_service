@@ -7,21 +7,37 @@
 	<Authorized>
 		<MudLayout>
 			<MudSwipeArea OnSwipe="@OnSwipe" Style="width: 100%;">
+
 				<MudAppBar Elevation="1">
 					<MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
 					<MudText Typo="Typo.h5">Courier service</MudText>
 					<MudAppBarSpacer />
-					<MudButton Color="Color.Inherit" OnClick="@((e) => DarkMode())"><MudIcon Icon="@icon" /></MudButton>
-					<LoginDisplay />
+
+					<MudHidden Breakpoint="Breakpoint.SmAndDown">
+							<MudIconButton Icon="@icon" Color="Color.Inherit" OnClick="@((e) => DarkMode())"></MudIconButton>
+						<LoginDisplay />
+					</MudHidden>
+
+					<MudHidden Breakpoint="Breakpoint.MdAndUp">
+						<MudIconButton Color="Color.Inherit" OnClick="@(() => ToggleOpen())" Icon="@Icons.Filled.MoreVert">
+						</MudIconButton>
+						<MudPopover OffsetY="true" Direction="Direction.Bottom" Open="@popoverOpen" Class="pa-4" Style="width: 70px; right: 0; position:absolute;">
+								<MudIconButton Icon="@icon" Color="Color.Inherit" OnClick="@((e) => DarkMode())"></MudIconButton>
+							<LoginDisplay />
+						</MudPopover>
+					</MudHidden>
 				</MudAppBar>
+
 				<MudDrawer @bind-Open="@open" Elevation="1">
 					<NavMenu />
 				</MudDrawer>
+
 				<MudMainContent Class="pt-16">
 					<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-6">
 						@Body
 					</MudContainer>
 				</MudMainContent>
+
 			</MudSwipeArea>
 		</MudLayout>
 	</Authorized>
@@ -33,6 +49,13 @@
 @code{
 	bool open = false;
 	string icon = Icons.Filled.Brightness4;
+
+	public bool popoverOpen;
+
+	public void ToggleOpen()
+	{
+		popoverOpen = !popoverOpen;
+	}
 
 	void ToggleDrawer()
 	{

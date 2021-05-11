@@ -1,26 +1,16 @@
 using Courier_service.Areas.Identity;
 using Courier_service.Data;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MudBlazor.Services;
 using Courier_service.Models;
 using Microsoft.AspNetCore.HttpOverrides;
-using AspNet.Security.OAuth.Vkontakte;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Http;
 
 namespace Courier_service
 {
@@ -53,6 +43,7 @@ namespace Courier_service
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddMudServices();
             services.AddHttpClient();
+            services.AddControllers();
             services.AddAuthentication(options => { })
                 .AddCookie(options =>
                 {
@@ -61,19 +52,19 @@ namespace Courier_service
                 })
                 .AddVkontakte(options =>
                 {
-                    options.ClientId = "***";
-                    options.ClientSecret = "***";
+                    options.ClientId = "*";
+                    options.ClientSecret = "*";
                 })
                 .AddYandex(options =>
                 {
-                    options.ClientId = "***";
-                    options.ClientSecret = "***";
+                    options.ClientId = "*";
+                    options.ClientSecret = "*";
                 })
                 .AddGitHub(options =>
                 {
-                    options.ClientId = "***";
-                    options.ClientSecret = "***";
-                    //secret ***
+                    options.ClientId = "*";
+                    options.ClientSecret = "*";
+                    //secret *
                 });
         }
 

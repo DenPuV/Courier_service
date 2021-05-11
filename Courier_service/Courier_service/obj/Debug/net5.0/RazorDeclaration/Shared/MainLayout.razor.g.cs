@@ -104,10 +104,17 @@ using Courier_service.Components;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 33 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Shared\MainLayout.razor"
+#line 49 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Shared\MainLayout.razor"
       
 	bool open = false;
 	string icon = Icons.Filled.Brightness4;
+
+	public bool popoverOpen;
+
+	public void ToggleOpen()
+	{
+		popoverOpen = !popoverOpen;
+	}
 
 	void ToggleDrawer()
 	{

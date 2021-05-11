@@ -2,30 +2,30 @@
 
 	<AuthorizeView Roles="Client">
 		<Authorized>
-			<MudText Typo="Typo.h4" Class="px-4 mt-2">Client menu</MudText>
+			<MudText Typo="Typo.h6" Class="px-4 mt-2">Меню клиента</MudText>
 			<MudDivider Class="my-2" />
-			<MudNavGroup Title="Orders" Expanded="false">
-				<MudNavLink Icon="@Icons.Filled.List" Href="orderslist">Orders list</MudNavLink>
-				<MudNavLink Icon="@Icons.Filled.Create" Href="neworder">New order</MudNavLink>
+			<MudNavGroup Title="Заказы" Expanded="false">
+				<MudNavLink Icon="@Icons.Filled.List" Href="orderslist">Список заказов</MudNavLink>
+				<MudNavLink Icon="@Icons.Filled.Create" Href="neworder">Новый заказ</MudNavLink>
 			</MudNavGroup>
-			<MudNavLink Icon="@Icons.Filled.Settings" Href="Identity/Account/Manage">Client settings</MudNavLink>
+			<MudNavLink Icon="@Icons.Filled.Settings" Href="Identity/Account/Manage">Настройки клиента</MudNavLink>
 		</Authorized>
 	</AuthorizeView>
 
 	<AuthorizeView Roles="Courier">
 		<Authorized>
-			<MudText Typo="Typo.h4" Class="px-4  mt-2">Courier menu</MudText>
+			<MudText Typo="Typo.h6" Class="px-4  mt-2">Меню курьера</MudText>
 			<MudDivider Class="my-2" />
-			<MudNavLink Icon="@Icons.Filled.Work" Href="courierorders">Orders</MudNavLink>
+			<MudNavLink Icon="@Icons.Filled.Work" Href="courierorders">Заказы</MudNavLink>
 		</Authorized>
 	</AuthorizeView>
 
 	<AuthorizeView>
 		<NotAuthorized>
-			<MudText Typo="Typo.h4" Class="px-4  mt-2">User menu</MudText>
+			<MudText Typo="Typo.h6" Class="px-4  mt-2">Меню пользователя</MudText>
 			<MudDivider Class="my-2" />
-			<MudText>Enter all client data first!</MudText>
-			<MudNavLink Icon="@Icons.Filled.Settings" Href="Identity/Account/Manage">Client settings</MudNavLink>
+			<MudText>Сначала введите контактные данные!</MudText>
+			<MudNavLink Icon="@Icons.Filled.Settings" Href="Identity/Account/Manage">Настройки клиента</MudNavLink>
 		</NotAuthorized>
 	</AuthorizeView>
 

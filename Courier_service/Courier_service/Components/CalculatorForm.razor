@@ -11,8 +11,8 @@
 <MudCard>
 	<MudCardContent>
 		<MudForm>
-			<MudTextField @onfocusout="validate" @bind-Value="@SendAddress" T="string" Label="SendAdress" Required="true" RequiredError="Sending adress is required!" />
-			<MudTextField @onfocusout="validate" @bind-Value="@RecAddress" T="string" Label="RecAdress" Required="true" RequiredError="Recieving adress is required!" />
+			<MudTextField @onfocusout="validate" @bind-Value="@SendAddress" T="string" Label="Откуда" Required="true" RequiredError="Заполните адресс отправки!" />
+			<MudTextField @onfocusout="validate" @bind-Value="@RecAddress" T="string" Label="Куда" Required="true" RequiredError="Заполните адресс доставки!" />
 		</MudForm>
 	</MudCardContent>
 	<MudCardActions>
@@ -22,9 +22,9 @@
 		}
 		@if (distance > 0)
 		{
-			<MudText>from @price ₽</MudText>
+			<MudText>от @price ₽</MudText>
 		}
-		<MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@invalid" Class="ml-auto" @onclick="CalculateDistance">Calculate</MudButton>
+		<MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@invalid" Class="ml-auto" @onclick="CalculateDistance">Расчитать</MudButton>
 	</MudCardActions>
 	@if (mapVisible && mapReady)
 		{

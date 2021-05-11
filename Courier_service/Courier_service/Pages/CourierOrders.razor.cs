@@ -78,12 +78,13 @@ namespace Courier_service.Pages
                 order = _delivery.First().Order;
                 delivery.Order = order;
                 order = LoadOrder(order);
+                order.Comments = _databaseService.GetOrderComments(order.Id);
                 try
                 {
                     route = LocationProvider.makePath(
                         _locationProvider.GetRoute(order.Route.StartCoordinates, order.Route.FinishCoordinates));
                 }
-                catch { ShowErrorSnackBar("Error while routing!"); }
+                catch { ShowErrorSnackBar("Ошибка составления маршрута!"); }
             }
             else 
             {
@@ -136,18 +137,18 @@ namespace Courier_service.Pages
             if (delivery != null)
             {
                 this.order = LoadOrder(order);
-                ShowSuccessSnackBar("Delivery has started!");
+                ShowSuccessSnackBar("Доставка началась!");
                 try
                 {
                     route = LocationProvider.makePath(
                         _locationProvider.GetRoute(order.Route.StartCoordinates, order.Route.FinishCoordinates));
                 }
-                catch { ShowErrorSnackBar("Error while routing!"); }
+                catch { ShowErrorSnackBar("Ошибка составления маршрута!"); }
             }
             else
             {
                 this.order = null;
-                ShowErrorSnackBar("Delivery has not started!");
+                ShowErrorSnackBar("Доставка не началась!");
             }
             StateHasChanged();
         }
@@ -159,11 +160,11 @@ namespace Courier_service.Pages
                 _databaseService.CompleteDelivery(delivery);
                 order = null;
                 delivery = null;
-                ShowSuccessSnackBar("Delivery complete!");
+                ShowSuccessSnackBar("Доставка завершена!");
             }
             catch
             {
-                ShowErrorSnackBar("Can't complete delivery!");
+                ShowErrorSnackBar("Невозможно завершить доставку!");
             }
             GetOrdersData();
         }

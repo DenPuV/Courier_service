@@ -137,8 +137,8 @@ using Courier_service.Services.LocationService;
 		contact = new Models.Contact();
 		package = new Models.Package();
 		route = new Models.Route();
-		startMarker = new Marker(0f, 0f) { Title = "From here" };
-		finishMarker = new Marker(0f, 0f) { Title = "To here" };
+		startMarker = new Marker(0f, 0f) { Title = "Отсюда" };
+		finishMarker = new Marker(0f, 0f) { Title = "Сюда" };
 		locationProvider = new LocationProvider(_clientFactory);
 
 		setAddr = getDestAddr;
@@ -177,7 +177,7 @@ using Courier_service.Services.LocationService;
 				route.StartAddress = null;
 				startStr = String.Empty;
 				route.StartCoordinates = String.Empty;
-				ShowErrorSnackBar("Sending address not found!");
+				ShowErrorSnackBar("Адрес доставки не найден");
 			}
 			else
 			{
@@ -197,7 +197,7 @@ using Courier_service.Services.LocationService;
 				route.FinishAddress = null;
 				finishStr = String.Empty;
 				route.FinishCoordinates = String.Empty;
-				ShowErrorSnackBar("Recivig address not found!");
+				ShowErrorSnackBar("Адрес доствкаи не найден!");
 			}
 			else
 			{
@@ -214,7 +214,7 @@ using Courier_service.Services.LocationService;
 			distance = LocationDistance.DistanceBetweenPlaces(route.StartAddress.GetLatLng(), route.FinishAddress.GetLatLng());
 			countPrice();
 			_mapController.AddPathAndBound(LocationProvider.makePath(route.StartAddress.GetLatLng(), route.FinishAddress.GetLatLng()),
-				"Disctance: " + distance.ToString("N0") + " m<br>Price: " + price.ToString("N0") + " ₽ for package " + selectedWeight);
+				"Расстояние: " + distance.ToString("N0") + " м<br>Стоимость: " + price.ToString("N0") + " ₽ за посылку " + selectedWeight);
 		}
 		downloading = false;
 		StateHasChanged();
@@ -246,12 +246,12 @@ using Courier_service.Services.LocationService;
 				distance = LocationDistance.DistanceBetweenPlaces(route.StartAddress.GetLatLng(), route.FinishAddress.GetLatLng());
 				countPrice();
 				_mapController.AddPathAndBound(LocationProvider.makePath(route.StartAddress.GetLatLng(), route.FinishAddress.GetLatLng()),
-					"Disctance: " + distance.ToString("N0") + " m<br>Price: " + price.ToString("N0") + " ₽ for package " + selectedWeight);
+					"Расстояние: " + distance.ToString("N0") + " м<br>Стоимость: " + price.ToString("N0") + " ₽ за посылку " + selectedWeight);
 			}
 			else
 			{
-				if (route.StartAddress == null) ShowErrorSnackBar("Sending address not found!");
-				if (route.FinishAddress == null) ShowErrorSnackBar("Reciving address not found!");
+				if (route.StartAddress == null) ShowErrorSnackBar("Адрес отправки не найден!");
+				if (route.FinishAddress == null) ShowErrorSnackBar("Адрес доставки не найден!");
 			}
 			downloading = false;
 		}
@@ -261,6 +261,7 @@ using Courier_service.Services.LocationService;
 	{
 		if (selectedWeight != String.Empty)
 		{
+			currentWeight = selectedWeight;
 			if (selectedWeight == "< 1 kg") price = Convert.ToDecimal( distance * 0.1);
 			else if (selectedWeight == "1 < 5 kg") price = Convert.ToDecimal( distance * 0.2);
 			else if (selectedWeight == "5 < 10 kg") price = Convert.ToDecimal( distance * 0.4);
@@ -286,7 +287,7 @@ using Courier_service.Services.LocationService;
 				contact.Patronymic = client.Patronymic;
 				contact.Phone = user.PhoneNumber;
 			}
-			else ShowErrorSnackBar("You are not authorized!");
+			else ShowErrorSnackBar("Вы не авторизованы!");
 		}
 		else
 		{

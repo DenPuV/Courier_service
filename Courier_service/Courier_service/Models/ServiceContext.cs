@@ -168,6 +168,11 @@ namespace Courier_service.Models
             }
             else throw new NullReferenceException("Order route is null!");
         }
+        public void PlaceReverseOrder(int orderId)
+        {
+            Order order = _dbcontext.Orders.Find(orderId);
+            if (order != null) PlaceReverseOrder(order);
+        }
         public Order UpdateOrderStatus(Order order, String status)
         {
             Order ord = _dbcontext.Orders.Find(order.Id);
@@ -231,6 +236,12 @@ namespace Courier_service.Models
             }
             else return null;
         }
+        public Order CancellOrder(int orderId)
+        {
+            Order order = _dbcontext.Orders.Find(orderId);
+            if (order != null) return CancellOrder(order);
+            else return null;
+        }
         public bool BindNewOrderToCourier(Courier courier)
         {
             var orders = from ord in _dbcontext.Orders
@@ -290,6 +301,18 @@ namespace Courier_service.Models
             {
                 throw new Exception("Something went wrong while completing delivery");
             }
+        }
+        public List<Comment> GetOrderComments(int orderId)
+        {
+            return (from comment in _dbcontext.Comments
+                   where comment.OrderId == orderId
+                   select comment).ToList<Comment>();
+        }
+        public List<Order> GetOrders(int clientId)
+        {
+            return (from o in _dbcontext.Orders
+                    where o.ClientId == clientId
+                    select o).ToList<Order>();
         }
     }
 }

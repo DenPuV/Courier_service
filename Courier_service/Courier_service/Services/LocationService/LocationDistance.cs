@@ -49,6 +49,11 @@ namespace Courier_service.Services.LocationService
             return DistanceBetweenPlaces(loc1.Lng, loc1.Lat, loc2.Lng, loc2.Lat);
         }
 
+        public static double DistanceBetweenPlaces(string loc1, string loc2)
+        {
+            return DistanceBetweenPlaces(ParseLatLng(loc1), ParseLatLng(loc2));
+        }
+
         public static LatLng ParseLatLng(string str)
         {
             try

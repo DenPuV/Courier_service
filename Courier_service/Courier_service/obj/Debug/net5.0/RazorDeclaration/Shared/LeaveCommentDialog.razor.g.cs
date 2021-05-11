@@ -120,16 +120,16 @@ using Courier_service.Models;
 			try
 			{
 				databaseService.AddComment(comment, orderId);
-				Snackbar.Add("Comment added!", Severity.Success);
+				Snackbar.Add("Комментарий сохранен!", Severity.Success);
 				MudDialog.Close(DialogResult.Ok(true));
 			}
 			catch
 			{
-				Snackbar.Add("Something went wrong while leaving comment!", Severity.Error);
+				Snackbar.Add("Что-то пошло не так!", Severity.Error);
 				Cancel();
 			}
 		}
-		else Snackbar.Add("Comment is empty!", Severity.Warning);
+		else Snackbar.Add("Комментарий пустой!", Severity.Warning);
 	}
 
 	void Cancel() => MudDialog.Cancel();

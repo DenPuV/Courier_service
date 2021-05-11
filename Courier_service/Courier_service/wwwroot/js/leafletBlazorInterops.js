@@ -487,8 +487,8 @@ var Popups = {};
 
 function addPopupToMap(mapId) {
     var popupContent = '<div class="listgroup">'+
-        '<a onclick="returnBtn(' + 1 + ')" class="list-group-item list-group-item-action">From here</a>' +
-        '<a onclick="returnBtn(' + 2 + ')" class="list-group-item list-group-item-action">To here</a>' +
+        '<a onclick="returnBtn(' + 1 + ')" class="list-group-item list-group-item-action">Отсюда</a>' +
+        '<a onclick="returnBtn(' + 2 + ')" class="list-group-item list-group-item-action">Сюда</a>' +
                         '</div > ';
     Popups[mapId] = L.popup()
         .setContent(popupContent);

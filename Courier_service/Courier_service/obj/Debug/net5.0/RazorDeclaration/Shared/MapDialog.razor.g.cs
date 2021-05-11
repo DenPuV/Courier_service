@@ -125,7 +125,7 @@ using Courier_service.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 17 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Shared\MapDialog.razor"
+#line 22 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Shared\MapDialog.razor"
        
 	[CascadingParameter] MudDialogInstance MudDialog { get; set; }
 	[Parameter] public MapController mapController { get; set; }
@@ -133,7 +133,7 @@ using Courier_service.Models;
 
 	protected async override Task OnInitializedAsync()
 	{
-		await Task.Delay(100);
+		await Task.Delay(500);
 		ShowRoute();
 	}
 
@@ -146,7 +146,7 @@ using Courier_service.Models;
 			mapController.AddMarker(new Marker(sc) { Popup = new Popup() { Content = route.StartName } });
 			mapController.AddMarker(new Marker(fc) { Popup = new Popup() { Content = route.FinishName } });
 			mapController.AddPathAndBound($"[{route.StartCoordinates},{route.FinishCoordinates}]",
-				$"Distance: {LocationDistance.DistanceBetweenPlaces(sc, fc).ToString("N0") + " m"}");
+				$"Расстояние: {LocationDistance.DistanceBetweenPlaces(sc, fc).ToString("N0") + " м"}");
 
 		}
 	}

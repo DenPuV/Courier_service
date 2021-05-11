@@ -44,6 +44,7 @@ namespace Courier_service.Pages
         public bool selfContact { get; set; }
         public bool downloading { get; set; } = true;
         public string selectedWeight { get; set; } = "< 1 kg";
+        public string currentWeight { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -59,7 +60,7 @@ namespace Courier_service.Pages
             }
             else
             {
-                ShowErrorSnackBar("You are not authorized!");
+                ShowErrorSnackBar("Вы не авторизованы!");
                 _navigationManager.NavigateTo("/");
                 downloading = false;
             }
@@ -67,11 +68,11 @@ namespace Courier_service.Pages
 
         public bool PackageValid()
         {
-            package.Weight = selectedWeight;
-            if (package.Description != null && selectedWeight != null) return true;
+            package.Weight = currentWeight;
+            if (package.Description != null && currentWeight != null) return true;
             else
             {
-                ShowErrorSnackBar("Enter all package data!");
+                ShowErrorSnackBar("Введите все данные о посылке!");
                 return false;
             }
         }
@@ -81,7 +82,7 @@ namespace Courier_service.Pages
             if (contact.FName != null && contact.SName != null && contact.Patronymic != null && contact.Phone != null) return true;
             else
             {
-                ShowErrorSnackBar("Enter all contact data!");
+                ShowErrorSnackBar("Введите все контактные данные!");
                 return false;
             }
         }
@@ -91,7 +92,7 @@ namespace Courier_service.Pages
             if (route.StartAddress != null && route.FinishAddress != null) return true;
             else
             {
-                ShowErrorSnackBar("Enter all route data!");
+                ShowErrorSnackBar("Выберите маршрут!");
                 return false;
             }
         }
@@ -108,10 +109,10 @@ namespace Courier_service.Pages
                 try
                 {
                     _databaseService.PlaceOrder(package, contact, route, client, price);
-                    ShowSuccessSnackBar("Order placed succesfully!");
+                    ShowSuccessSnackBar("Заказ успешно составлен!");
                     _navigationManager.NavigateTo("/");
                 }
-                catch { ShowErrorSnackBar("Something went wrong while placing order!"); }
+                catch { ShowErrorSnackBar("Что-то пошло не так!"); }
             }
             downloading = false;
         }

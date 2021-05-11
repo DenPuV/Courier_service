@@ -13,10 +13,17 @@ namespace Courier_service.Services.LocationService
 {
     public class LocationProvider
     {
-        private readonly IHttpClientFactory _clientFactory;
+        //private readonly IHttpClientFactory _clientFactory;
+        HttpClient client = null;
         public LocationProvider(IHttpClientFactory clientFactory)
         {
-            _clientFactory = clientFactory;
+            //_clientFactory = clientFactory;
+            client = clientFactory.CreateClient();
+        }
+
+        public LocationProvider(HttpClient client)
+        {
+            this.client = client;
         }
 
         public Address GetAddress(float lon, float lat)
@@ -33,6 +40,10 @@ namespace Courier_service.Services.LocationService
             {
                 return null;
             }
+        }
+        public Address GetAddress(LatLng latlng)
+        {
+            return GetAddress(latlng.Lng, latlng.Lat);
         }
 
         public Address GetAddress(string addr)
@@ -65,7 +76,7 @@ namespace Courier_service.Services.LocationService
             var request = new HttpRequestMessage(HttpMethod.Get, URL);
             request.Headers.Add("Accept", "application/vnd.github.v3+json");
             request.Headers.Add("User-Agent", "HttpClientFactory-Course");
-            var client = _clientFactory.CreateClient();
+            //var client = _clientFactory.CreateClient();
 
             var response = client.Send(request);
 
@@ -108,7 +119,7 @@ namespace Courier_service.Services.LocationService
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.Add("Accept", "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8");
             request.Headers.Add("Authorization", "5b3ce3597851110001cf62483b8f5face1784d6db2e00f98ba26a2a9");
-            var client = _clientFactory.CreateClient();
+            //var client = _clientFactory.CreateClient();
             var response = client.Send(request);
 
             if (response.IsSuccessStatusCode)
@@ -145,7 +156,7 @@ namespace Courier_service.Services.LocationService
                 $"https://routing.openstreetmap.de/routed-car/route/v1/driving/{addr1.GetLatLng().Lat.ToString().Replace(',', '.')},{addr1.GetLatLng().Lng.ToString().Replace(',', '.')};{addr2.GetLatLng().Lat.ToString().Replace(',', '.')},{addr2.GetLatLng().Lng.ToString().Replace(',', '.')}?overview=false&geometries=polyline&steps=true");
             request.Headers.Add("Accept", "application/vnd.github.v3+json");
             request.Headers.Add("User-Agent", "HttpClientFactory-Course");
-            var client = _clientFactory.CreateClient();
+            //var client = _clientFactory.CreateClient();
             var response = await client.SendAsync(request);
 
             if (response.IsSuccessStatusCode)
