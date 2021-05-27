@@ -144,7 +144,7 @@ using Courier_service.Models;
 		if (sc != null && fc != null)
 		{
 			mapController.AddMarker(new Marker(sc) { Popup = new Popup() { Content = route.StartName } });
-			mapController.AddMarker(new Marker(fc) { Popup = new Popup() { Content = route.FinishName } });
+			mapController.AddMarker(new Marker(fc) { Popup = new Popup() { Content = route.FinishName } }, true);
 			mapController.AddPathAndBound($"[{route.StartCoordinates},{route.FinishCoordinates}]",
 				$"Расстояние: {LocationDistance.DistanceBetweenPlaces(sc, fc).ToString("N0") + " м"}");
 

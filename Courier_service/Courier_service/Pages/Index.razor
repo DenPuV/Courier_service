@@ -3,6 +3,7 @@
 <AuthorizeView Roles="Client, Courier">
 	<Authorized>
 		<MudText Typo="Typo.h4">Привет @context.User.Identity.Name!</MudText>
+		<Courier_service.Components.OpenOrdersComponent />
 	</Authorized>
 	<NotAuthorized>
 		<h1></h1>

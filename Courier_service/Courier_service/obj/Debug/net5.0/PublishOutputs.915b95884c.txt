@@ -16,6 +16,7 @@ D:\Курьерская служба\Courier_service\Courier_service\Courier_ser
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\PubTmp\Out\wwwroot\lib\qrcode.js
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\PubTmp\Out\wwwroot\lib\qrcode.min.js
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\PubTmp\Out\wwwroot\Media\Image\bg.jpeg
+D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\PubTmp\Out\wwwroot\Media\Image\finish_marker.png
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\PubTmp\Out\appsettings.Development.json
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\PubTmp\Out\appsettings.json
 D:\Курьерская служба\Courier_service\Courier_service\Courier_service\obj\Debug\net5.0\PubTmp\Out\Courier_service.dll

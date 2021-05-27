@@ -204,7 +204,7 @@ using Courier_service.Services.LocationService;
 				finishMarker.Position = route.FinishAddress.GetLatLng();
 				finishMarker.Popup = new Popup() { AutoClose = true, Content = route.FinishAddress.ToString() };
 				finishStr = route.FinishAddress.ToString();
-				_mapController.AddMarkerAsync(finishMarker);
+				_mapController.AddMarkerAsync(finishMarker, true);
 				route.FinishCoordinates = LocationProvider.makeStringLatlng(popupLatLng);
 			}
 		}

@@ -178,7 +178,7 @@ namespace Courier_service.Pages
             if (sc != null && fc != null)
             {
                 _mapController.AddMarker(new Marker(sc) { Popup = new Popup() { Content = order.Route.StartName } });
-                _mapController.AddMarker(new Marker(fc) { Popup = new Popup() { Content = order.Route.FinishName } });
+                _mapController.AddMarker(new Marker(fc) { Popup = new Popup() { Content = order.Route.FinishName } }, true);
                 _mapController.AddPathAndBound(route,
                     $"{order.Route.StartName}<br>" +
                         $"<span class='glyphicon glyphicon - name'>" +

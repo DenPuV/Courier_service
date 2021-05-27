@@ -112,6 +112,13 @@ using Courier_service.Services.LocationService;
 #nullable disable
 #nullable restore
 #line 10 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\Orderslist.razor"
+using Courier_service.Services;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 11 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\Orderslist.razor"
 using Courier_service.Models;
 
 #line default
@@ -133,7 +140,7 @@ using Courier_service.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 100 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\Orderslist.razor"
+#line 101 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\Orderslist.razor"
       
 	[Inject]
 	IJSRuntime _jsRuntime { get; set; }

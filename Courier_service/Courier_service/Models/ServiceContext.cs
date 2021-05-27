@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Courier_service.Models
 {
@@ -18,9 +19,15 @@ namespace Courier_service.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Server=140.238.173.223;Port=5432;Database=Courier_service;User Id=postgres;Password=230798");
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                    .AddJsonFile("appsettings.json")
+                    .Build();
+                //optionsBuilder.UseNpgsql("Server=140.238.173.223;Port=5432;Database=Courier_service;User Id=postgres;Password=230798");
+                optionsBuilder.UseNpgsql(configuration.GetConnectionString("LinuxPostgreSQLConnection"));
             }//140.238.173.223
         }
 
@@ -204,6 +211,14 @@ namespace Courier_service.Models
         {
             var cl = from c in _dbcontext.Clients
                      where c.AspName == userId
+                     select c;
+
+            return (cl.Count() > 0) ? cl.First() : null;
+        }
+        public Courier GetCourier(string userId)
+        {
+            var cl = from c in _dbcontext.Couriers
+                     where c.AspUserId == userId
                      select c;
 
             return (cl.Count() > 0) ? cl.First() : null;

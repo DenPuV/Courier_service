@@ -7,6 +7,7 @@
 @using BlazorLeaflet
 @using BlazorLeaflet.Models
 @using Courier_service.Services.LocationService
+@using Courier_service.Services
 @using Courier_service.Models
 
 @inject IDialogService DialogService
@@ -51,11 +52,11 @@
 								   Class="m-2" Color="Color.Default">Показать маршрут</MudButton>
 					</MudItem>
 					<MudItem Class="p-xs-1 p-md-4 align-center" xs="12" sm="6" lg="3">
-						<MudText Typo="Typo.body1">Статут: @order.Status</MudText>
+						<MudText Typo="Typo.body1">Статус: @Localizer.RuStatus[order.Status] </MudText>
 						@if (order.Delivery != null)
 						{
 								<MudText Typo="Typo.h6">Доставка</MudText>
-								<MudText Typo="Typo.body1">Доствка началась в @order.Date.ToShortDateString()</MudText>
+								<MudText Typo="Typo.body1">Доставка началась в @order.Date.ToShortDateString()</MudText>
 								<MudText Typo="Typo.body1">Курьер: @order.Delivery.Courier.ToString()</MudText>
 						}
 					</MudItem>

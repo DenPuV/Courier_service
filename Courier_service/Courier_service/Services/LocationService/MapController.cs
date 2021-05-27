@@ -9,6 +9,7 @@ using BlazorLeaflet.Models.Events;
 using BrowserInterop.Extensions;
 using BrowserInterop.Geolocation;
 using BlazorLeaflet.Utils;
+using System.Drawing;
 
 namespace Courier_service.Services.LocationService
 {
@@ -75,20 +76,26 @@ namespace Courier_service.Services.LocationService
             });
         }
 
-        public void AddMarker(LatLng ll)
+        public void AddMarker(LatLng ll, bool finishmarker = false)
         {
             Marker mark = new Marker(ll);
-            AddMarker(mark);
+            AddMarker(mark, finishmarker);
         }
-        public void AddMarker(Marker mark)
+        public void AddMarker(Marker mark, bool finishmarker = false)
         {
-                markers.Add(mark);
-                _map.AddLayer(mark);
+            markers.Add(mark);
+            if (finishmarker)
+                mark.Icon = new Icon() {
+                    Url = "/Media/Image/finish_marker.png",
+                    ClassName = "map-icon"
+                    //Anchor = new Point(19, 95)
+                };
+            _map.AddLayer(mark);
                 //_map.PanTo(mark.Position.ToPointF());
         }
-        public void AddMarker(Address addr)
+        public void AddMarker(Address addr, bool finishmarker = false)
         {
-            AddMarker(new Marker(addr.GetLatLng()) { Popup = new Popup() { Content = addr.ToString() } });
+            AddMarker(new Marker(addr.GetLatLng()) { Popup = new Popup() { Content = addr.ToString() } }, finishmarker);
         }
         public void RemoveMarker(Marker mark)
         {
@@ -114,18 +121,18 @@ namespace Courier_service.Services.LocationService
                 AddMarker(m);
             }
         }
-        public async void AddMarkerAsync(Marker mark)
+        public async void AddMarkerAsync(Marker mark, bool finishmarker = false)
         {
             await Task.Run(() => 
             {
-                AddMarker(mark);
+                AddMarker(mark, finishmarker);
             });
         }
-        public async void AddMarkerAsync(Address mark)
+        public async void AddMarkerAsync(Address mark, bool finishmarker = false)
         {
             await Task.Run(() =>
             {
-                AddMarker(mark);
+                AddMarker(mark, finishmarker);
             });
         }
         public async void AddPathAndBound(string path)

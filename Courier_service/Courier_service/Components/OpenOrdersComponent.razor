@@ -1,0 +1,12 @@
+﻿@inherits OpenOrders
+
+@if (CountersLoaded)
+{
+	<MudText Typo="Typo.h5">@Message</MudText>
+}
+else
+{
+	<MudSkeleton SkeletonType="SkeletonType.Text" Width="100"></MudSkeleton>
+	<MudSkeleton SkeletonType="SkeletonType.Text" Width="80"></MudSkeleton>
+}
+

@@ -48,3 +48,12 @@ a, .btn-link {
         right: 0.75rem;
         top: 0.5rem;
     }
+
+.map-icon {
+    height: 41px;
+    width: 25px;
+    object-fit: contain;
+    /* wonky placement as described in the Leaflet documentation*/
+    margin-left: -13px;
+    margin-top: -40px;
+}

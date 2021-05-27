@@ -28,7 +28,6 @@ namespace Courier_service.Pages
         {
             var authState = await _authenticationStateProvider.GetAuthenticationStateAsync();
             var idUser = authState.User;
-
             if (idUser.Identity.IsAuthenticated)
             {
                 user = await _userManager.FindByNameAsync(idUser.Identity.Name);

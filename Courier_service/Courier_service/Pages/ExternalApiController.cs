@@ -161,8 +161,9 @@ namespace Courier_service.Pages
         public StatusCodeResult Delete(int id)
         {
             Order order = _ds._dbcontext.Find<Order>(id);
+            int clientId = Convert.ToInt32(ControllerContext.HttpContext.Request.Headers["id"]);
 
-            if (order != null)
+            if (order != null && order.ClientId == clientId)
             {
                 if (order.Status == "accepted" || order.Status == "waiting for delivery")
                 {
