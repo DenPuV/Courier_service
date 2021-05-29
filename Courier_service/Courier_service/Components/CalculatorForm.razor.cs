@@ -78,14 +78,14 @@ namespace Courier_service.Components
             InvokeAsync(() => { StateHasChanged(); });
         }
 
-		public void showPath(Address addr1, Address addr2)
+		public void showPath(Address sAddr, Address dAddr)
 		{
-			_mapController.AddMarker(addr1);
-			_mapController.AddMarker(addr2);
-            _mapController.AddPathAndBound($"[[{addr1.GetLatLng().Lat.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"))}" +
-                $",{addr1.GetLatLng().Lng.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"))}]" +
-                $",[{addr2.GetLatLng().Lat.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"))}" +
-                $",{addr2.GetLatLng().Lng.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"))}]]", "Расстояние: " + distance.ToString("N0") + " м.");
+			_mapController.AddMarker(sAddr);
+			_mapController.AddMarker(dAddr, true);
+            _mapController.AddPathAndBound($"[[{sAddr.GetLatLng().Lat.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"))}" +
+                $",{sAddr.GetLatLng().Lng.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"))}]" +
+                $",[{dAddr.GetLatLng().Lat.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"))}" +
+                $",{dAddr.GetLatLng().Lng.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"))}]]", "Расстояние: " + distance.ToString("N0") + " м.");
 		}
     }
 }

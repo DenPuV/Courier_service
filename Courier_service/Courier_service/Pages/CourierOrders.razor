@@ -108,7 +108,8 @@
 				</MudItem>
 			</MudGrid>
 		}
-		<MudText Typo="Typo.h6">Больше нет заказов</MudText>
+		<MudText Typo="Typo.h6">@Message</MudText>
+		<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => BindNewOrder())">Найти заказ</MudButton>
 	}
 }
 

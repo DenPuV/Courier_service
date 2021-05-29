@@ -26,9 +26,8 @@ namespace Courier_service.Models
                     .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                     .AddJsonFile("appsettings.json")
                     .Build();
-                //optionsBuilder.UseNpgsql("Server=140.238.173.223;Port=5432;Database=Courier_service;User Id=postgres;Password=230798");
                 optionsBuilder.UseNpgsql(configuration.GetConnectionString("LinuxPostgreSQLConnection"));
-            }//140.238.173.223
+            }
         }
 
         public DbSet<Client> Clients { get; set; }
@@ -124,7 +123,8 @@ namespace Courier_service.Models
         }
         public void PlaceReverseOrder(Order order)
         {
-            if (order.Route != null)
+            _dbcontext.Entry<Order>(order).Reload();
+            if (order.Route != null && _dbcontext.Orders.Find(order.Id).Status == "delivering")
             {
                 order.Status = "reversed";
                 int courierid = (from del in _dbcontext.Deliveries
@@ -171,9 +171,10 @@ namespace Courier_service.Models
                 }
                 catch 
                 {
-                    throw new Exception("Can not reverse order!"); }
+                    throw new Exception("Невозможно вернуть заказ!"); 
+                }
             }
-            else throw new NullReferenceException("Order route is null!");
+            else throw new NullReferenceException("Заказ не доставляется!");
         }
         public void PlaceReverseOrder(int orderId)
         {
@@ -239,7 +240,8 @@ namespace Courier_service.Models
         {
             order.Status = "cancelled";
             Order ord = _dbcontext.Orders.Find(order.Id);
-            if (ord != null)
+            _dbcontext.Entry<Order>(ord).Reload();
+            if (ord != null && (ord.Status == "waiting for delivery" || ord.Status == "accepted"))
             {
                 try
                 {
@@ -247,9 +249,9 @@ namespace Courier_service.Models
                     SaveData();
                     return ord;
                 }
-                catch { throw new Exception("Something went wrong while cancelling order!"); }
+                catch { throw new Exception("Не удалось закрыть заказ!"); }
             }
-            else return null;
+            else throw new Exception("Заказ не существует или уже даставляется!");
         }
         public Order CancellOrder(int orderId)
         {
@@ -289,17 +291,25 @@ namespace Courier_service.Models
         {
             try
             {
-                order = UpdateOrderStatus(order, "delivering");
-                Delivery delivery = new Delivery()
+                _dbcontext.Entry<Order>(order).Reload();
+                if (_dbcontext.Orders.Find(order.Id).Status == "cancelled")
                 {
-                    Date = DateTime.Now,
-                    OrderId = order.Id,
-                    Order = order,
-                    CourierId = courier.Id,
-                    Courier = courier
-                };
-                AddDelivery(delivery);
-                return delivery;
+                    return null;
+                }
+                else
+                {
+                    order = UpdateOrderStatus(order, "delivering");
+                    Delivery delivery = new Delivery()
+                    {
+                        Date = DateTime.Now,
+                        OrderId = order.Id,
+                        Order = order,
+                        CourierId = courier.Id,
+                        Courier = courier
+                    };
+                    AddDelivery(delivery);
+                    return delivery;
+                }
             }
             catch 
             {
@@ -310,11 +320,15 @@ namespace Courier_service.Models
         {
             try
             {
-                UpdateOrderStatus(delivery.Order, "delivered");
+                var order = _dbcontext.Orders.Find(delivery.OrderId);
+                _dbcontext.Entry<Order>(order).Reload();
+                if (order.Status == "delivering" || order.Status == "return")
+                    UpdateOrderStatus(delivery.Order, "delivered");
+                else throw new Exception("Заказ этот заказ уже отменен!");
             }
             catch 
             {
-                throw new Exception("Something went wrong while completing delivery");
+                throw new Exception("Не удалось завершить заказ!");
             }
         }
         public List<Comment> GetOrderComments(int orderId)

@@ -23,7 +23,9 @@ namespace Courier_service.Pages
         public List<jsonOrder> Get()
         {
             int clientId = Convert.ToInt32(ControllerContext.HttpContext.Request.Headers["id"]);
+            var client = _ds._dbcontext.Clients.Find(clientId);
             List<jsonOrder> ordersList = new List<jsonOrder>();
+            if (client == null || client.Deleted == true || client.AspName != null) return ordersList;
 
             var orders = from o in _ds.GetOrders(clientId)
                          join p in _ds._dbcontext.Packages on o.PackageId equals p.Id
@@ -59,7 +61,9 @@ namespace Courier_service.Pages
         public jsonOrder Get(int id)
         {
             int clientId = Convert.ToInt32(ControllerContext.HttpContext.Request.Headers["id"]);
+            var client = _ds._dbcontext.Clients.Find(clientId);
             jsonOrder order = null;
+            if (client == null || client.Deleted == true || client.AspName != null) return order;
 
             var orders = from o in _ds.GetOrders(clientId)
                          join p in _ds._dbcontext.Packages on o.PackageId equals p.Id
@@ -111,7 +115,9 @@ namespace Courier_service.Pages
             _lp = new LocationProvider(_client);
 
             int clientId = Convert.ToInt32(ControllerContext.HttpContext.Request.Headers["id"]);
-            
+            var client = _ds._dbcontext.Clients.Find(clientId);
+            if (client == null || client.Deleted == true || client.AspName != null) return StatusCode(403);
+
             double price;
             Package package = new Package();
             Route route = new Route();
@@ -162,6 +168,8 @@ namespace Courier_service.Pages
         {
             Order order = _ds._dbcontext.Find<Order>(id);
             int clientId = Convert.ToInt32(ControllerContext.HttpContext.Request.Headers["id"]);
+            var client = _ds._dbcontext.Clients.Find(clientId);
+            if (client == null || client.Deleted == true || client.AspName != null) return StatusCode(403);
 
             if (order != null && order.ClientId == clientId)
             {

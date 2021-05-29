@@ -133,7 +133,7 @@ using Courier_service.Services.LocationService;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 115 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\CourierOrders.razor"
+#line 116 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Pages\CourierOrders.razor"
       
 	[Inject]
 	IJSRuntime _jsRuntime { get; set; }

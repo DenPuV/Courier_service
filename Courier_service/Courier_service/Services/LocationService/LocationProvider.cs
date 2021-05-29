@@ -50,7 +50,7 @@ namespace Courier_service.Services.LocationService
         {
             try
             {
-                return AddressRequest($"https://api.openrouteservice.org/geocode/search?api_key=5b3ce3597851110001cf62483b8f5face1784d6db2e00f98ba26a2a9&boundary.country=RU&size=1&text=Киров " + addr).Result;
+                return AddressRequest($"https://api.openrouteservice.org/geocode/search?api_key=5b3ce3597851110001cf62483b8f5face1784d6db2e00f98ba26a2a9&boundary.country=RU&size=1&text=Кировская область, Киров, " + addr).Result;
             }
             catch
             {

@@ -35,6 +35,7 @@ namespace Courier_service.Pages
         public string route { get; set; } = String.Empty;
         public bool downloading { get; set; } = true;
         public bool dataLoaded { get; set; } = false;
+        public string Message { get; set; } = "";
 
         protected override async Task OnInitializedAsync()
         {
@@ -53,15 +54,15 @@ namespace Courier_service.Pages
                 { 
                     courier = _courier.First<Courier>();
                     GetOrdersData();
+                    dataLoaded = true;
                 }
-                else ShowErrorSnackBar("You are not a courier!");
+                else ShowErrorSnackBar("Вы не курьер!");
             }
             else
             {
-                ShowErrorSnackBar("You are not authorized!");
+                ShowErrorSnackBar("Вы не авторизованы!");
             }
             downloading = false;
-            dataLoaded = true;
             StateHasChanged();
         }
 
@@ -70,7 +71,7 @@ namespace Courier_service.Pages
             var _delivery = from del in _databaseService._dbcontext.Deliveries
                            join ord in _databaseService._dbcontext.Orders on del.OrderId equals ord.Id
                            where del.CourierId == courier.Id && (ord.Status == "return" || ord.Status == "delivering")
-                           select new { Order = ord, Delivery = del };
+                            select new { Order = ord, Delivery = del };
 
             if (_delivery.Count() > 0)
             {
@@ -95,7 +96,7 @@ namespace Courier_service.Pages
                           select o).ToList<Order>();
                 if (Orders.Count == 0)
                 {
-                    if(_databaseService.BindNewOrderToCourier(courier)) GetOrdersData();
+                    Message = "Нет заказов";
                 }
                 else
                 {
@@ -105,6 +106,7 @@ namespace Courier_service.Pages
                                      where route.Id == ord.RouteId
                                      select route).First<Route>();
                     }
+                    Message = "";
                 }
             }
             InvokeAsync(() => StateHasChanged());
@@ -147,8 +149,9 @@ namespace Courier_service.Pages
             }
             else
             {
+                Orders.Remove(this.order);
                 this.order = null;
-                ShowErrorSnackBar("Доставка не началась!");
+                ShowErrorSnackBar("Не удалось начать доставку! Заказ отменен или сервер не отвечает!");
             }
             StateHasChanged();
         }
@@ -185,6 +188,17 @@ namespace Courier_service.Pages
                         $"</span><br>{order.Route.FinishName}");
 
             }
+        }
+
+        public void BindNewOrder()
+        {
+            if (_databaseService.BindNewOrderToCourier(courier))
+            {
+                GetOrdersData();
+                Message = "Добавлен новый заказ";
+            }
+            else Message = "Нет свободных заказов";
+            StateHasChanged();
         }
 
         [Inject]

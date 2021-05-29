@@ -52,19 +52,19 @@ namespace Courier_service
                 })
                 .AddVkontakte(options =>
                 {
-                    options.ClientId = "7832510";
-                    options.ClientSecret = "61OebKp7651VpCUDr9wk";
+                    options.ClientId = "***";
+                    options.ClientSecret = "***";
                 })
                 .AddYandex(options =>
                 {
-                    options.ClientId = "2dc3b563c2c042448e3be9e126023452";
+                    options.ClientId = "***";
                     options.ClientSecret = "8290db959803427e84f80b04ced95fdb";
                 })
                 .AddGitHub(options =>
                 {
-                    options.ClientId = "123418ec20ecc7279c12";
-                    options.ClientSecret = "f5abc2b7ed4471a6de8e1016ad19f8d8b6b970db";
-                    //secret f5abc2b7ed4471a6de8e1016ad19f8d8b6b970db
+                    options.ClientId = "***";
+                    options.ClientSecret = "***";
+                    
                 });
         }
 
