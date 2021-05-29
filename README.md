@@ -1,2 +1,2 @@
 # Courier service
-<a href="purtov.top"> Ссылка на приложение </a>
+<a href="https://purtov.top"> Ссылка на приложение </a>
