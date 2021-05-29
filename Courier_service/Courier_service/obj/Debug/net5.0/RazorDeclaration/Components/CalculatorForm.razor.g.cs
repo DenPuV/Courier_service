@@ -118,7 +118,7 @@ using BlazorLeaflet.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 37 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Components\CalculatorForm.razor"
+#line 38 "D:\Курьерская служба\Courier_service\Courier_service\Courier_service\Components\CalculatorForm.razor"
       
 	[Inject]
 	ISnackbar snackbar { get; set; }

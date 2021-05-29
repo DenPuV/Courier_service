@@ -10,6 +10,7 @@
 
 <MudCard>
 	<MudCardContent>
+		<MudText Typo="Typo.h5">Калькулятор стоимости</MudText>
 		<MudForm>
 			<MudTextField @onfocusout="validate" @bind-Value="@SendAddress" T="string" Label="Откуда" Required="true" RequiredError="Заполните адрес отправки!" />
 			<MudTextField @onfocusout="validate" @bind-Value="@RecAddress" T="string" Label="Куда" Required="true" RequiredError="Заполните адрес доставки!" />

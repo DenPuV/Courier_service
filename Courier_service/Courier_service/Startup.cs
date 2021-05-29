@@ -58,13 +58,13 @@ namespace Courier_service
                 .AddYandex(options =>
                 {
                     options.ClientId = "***";
-                    options.ClientSecret = "8290db959803427e84f80b04ced95fdb";
+                    options.ClientSecret = "***";
                 })
                 .AddGitHub(options =>
                 {
                     options.ClientId = "***";
                     options.ClientSecret = "***";
-                    
+                    //secret ***
                 });
         }
 
