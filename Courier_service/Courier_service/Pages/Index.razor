@@ -1,0 +1,13 @@
+﻿@page "/"
+
+<AuthorizeView Roles="Client, Courier">
+	<Authorized>
+		<MudText Typo="Typo.h4">Привет @context.User.Identity.Name!</MudText>
+		<Courier_service.Components.OpenOrdersComponent />
+	</Authorized>
+	<NotAuthorized>
+		<h1></h1>
+		<MudText Typo="Typo.h4">Сначала введите контактные данные!</MudText>
+		<MudLink Color="Color.Info" href="Identity/Account/Manage">Настройки клиента</MudLink>
+	</NotAuthorized>
+</AuthorizeView>

@@ -1,0 +1,127 @@
+﻿@inherits LayoutComponentBase
+@using Courier_service.Components
+
+<MudThemeProvider Theme="currentTheme" />
+
+<AuthorizeView>
+	<Authorized>
+		<MudLayout>
+			<MudSwipeArea OnSwipe="@OnSwipe" Style="width: 100%;">
+
+				<MudAppBar Elevation="1">
+					<MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+					<MudText Typo="Typo.h5">Courier service</MudText>
+					<MudAppBarSpacer />
+
+					<MudHidden Breakpoint="Breakpoint.SmAndDown">
+							<MudIconButton Icon="@icon" Color="Color.Inherit" OnClick="@((e) => DarkMode())"></MudIconButton>
+						<LoginDisplay />
+					</MudHidden>
+
+					<MudHidden Breakpoint="Breakpoint.MdAndUp">
+						<MudIconButton Color="Color.Inherit" OnClick="@(() => ToggleOpen())" Icon="@Icons.Filled.MoreVert">
+						</MudIconButton>
+						<MudPopover OffsetY="true" Direction="Direction.Bottom" Open="@popoverOpen" Class="pa-4" Style="width: 70px; right: 0; position:absolute;">
+								<MudIconButton Icon="@icon" Color="Color.Inherit" OnClick="@((e) => DarkMode())"></MudIconButton>
+							<LoginDisplay />
+						</MudPopover>
+					</MudHidden>
+				</MudAppBar>
+
+				<MudDrawer @bind-Open="@open" Elevation="1">
+					<NavMenu />
+				</MudDrawer>
+
+				<MudMainContent Class="pt-16">
+					<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-6">
+						@Body
+					</MudContainer>
+				</MudMainContent>
+
+			</MudSwipeArea>
+		</MudLayout>
+	</Authorized>
+	<NotAuthorized>
+		<MainView />
+	</NotAuthorized>
+</AuthorizeView>
+
+@code{
+	bool open = false;
+	string icon = Icons.Filled.Brightness4;
+
+	public bool popoverOpen;
+
+	public void ToggleOpen()
+	{
+		popoverOpen = !popoverOpen;
+	}
+
+	void ToggleDrawer()
+	{
+		open = !open;
+	}
+
+	public void OnSwipe(SwipeDirection direction)
+	{
+		if (direction == SwipeDirection.LeftToRight && !open)
+		{
+			open = true;
+			StateHasChanged();
+		}
+		else if (direction == SwipeDirection.RightToLeft && open)
+		{
+			open = false;
+			StateHasChanged();
+		}
+	}
+
+	protected override void OnInitialized()
+	{
+		currentTheme = defaultTheme;
+	}
+
+	void DarkMode()
+	{
+		if (currentTheme == defaultTheme)
+		{
+			currentTheme = darkTheme;
+			icon = Icons.Filled.Brightness5;
+		}
+		else
+		{
+			currentTheme = defaultTheme;
+			icon = Icons.Filled.Brightness4;
+		}
+	}
+
+	MudTheme currentTheme = new MudTheme();
+	MudTheme defaultTheme = new MudTheme()
+	{
+		Palette = new Palette()
+		{
+			Black = "#272c34"
+		}
+	};
+
+	MudTheme darkTheme = new MudTheme()
+	{
+		Palette = new Palette()
+		{
+			Black = "#27272f",
+			Background = "#32333d",
+			BackgroundGrey = "#27272f",
+			Surface = "#373740",
+			DrawerBackground = "#27272f",
+			DrawerText = "rgba(255,255,255, 0.50)",
+			DrawerIcon = "rgba(255,255,255, 0.50)",
+			AppbarBackground = "#27272f",
+			AppbarText = "rgba(255,255,255, 0.70)",
+			TextPrimary = "rgba(255,255,255, 0.70)",
+			TextSecondary = "rgba(255,255,255, 0.50)",
+			ActionDefault = "#adadb1",
+			ActionDisabled = "rgba(255,255,255, 0.26)",
+			ActionDisabledBackground = "rgba(255,255,255, 0.12)"
+		}
+	};
+}

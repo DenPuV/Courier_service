@@ -1,0 +1,48 @@
+﻿@using BlazorLeaflet
+@using BlazorLeaflet.Models
+@using Courier_service.Services.LocationService
+@using Courier_service.Models
+
+<MudDialog>
+	<TitleContent>
+		<MudText Typo="Typo.h4">
+			Карта
+		</MudText>
+	</TitleContent>
+	<DialogContent>
+		<div style="width: 100%; height: 400px;">
+			<LeafletMap Map="@mapController.Map" />
+		</div>
+	</DialogContent>
+	<DialogActions>
+		<MudButton OnClick="Cancel">Закрыть</MudButton>
+	</DialogActions>
+</MudDialog>
+
+@code{ 
+	[CascadingParameter] MudDialogInstance MudDialog { get; set; }
+	[Parameter] public MapController mapController { get; set; }
+	[Parameter] public Route route { get; set; }
+
+	protected async override Task OnInitializedAsync()
+	{
+		await Task.Delay(500);
+		ShowRoute();
+	}
+
+	void ShowRoute()
+	{
+		LatLng sc = LocationDistance.ParseLatLng(route.StartCoordinates);
+		LatLng fc = LocationDistance.ParseLatLng(route.FinishCoordinates);
+		if (sc != null && fc != null)
+		{
+			mapController.AddMarker(new Marker(sc) { Popup = new Popup() { Content = route.StartName } });
+			mapController.AddMarker(new Marker(fc) { Popup = new Popup() { Content = route.FinishName } }, true);
+			mapController.AddPathAndBound($"[{route.StartCoordinates},{route.FinishCoordinates}]",
+				$"Расстояние: {LocationDistance.DistanceBetweenPlaces(sc, fc).ToString("N0") + " м"}");
+
+		}
+	}
+
+	void Cancel() => MudDialog.Cancel();
+}

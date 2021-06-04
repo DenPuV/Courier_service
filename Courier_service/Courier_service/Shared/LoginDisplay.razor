@@ -1,0 +1,28 @@
+﻿<AuthorizeView Roles="Client">
+    <Authorized>
+			<MudIconButton Link="Identity/Account/Manage"
+						   Target="_self"
+						   Icon="@Icons.Filled.Settings"
+						   Color="Color.Inherit"></MudIconButton>
+    </Authorized>
+</AuthorizeView>
+
+<AuthorizeView>
+	<Authorized>
+		<form method="post" action="Identity/Account/LogOut">
+				<MudIconButton Icon="@Icons.Filled.Logout"
+							   ButtonType="ButtonType.Submit"
+							   Color="Color.Inherit"></MudIconButton>
+		</form>
+	</Authorized>
+	<NotAuthorized>
+			<MudIconButton Link="Identity/Account/Register"
+						   Target="_self"
+						   Icon="@Icons.Filled.AppRegistration"
+						   Color="Color.Inherit"></MudIconButton>
+			<MudIconButton Link="Identity/Account/Login"
+						   Target="_self"
+						   Icon="@Icons.Filled.Login"
+						   Color="Color.Inherit"></MudIconButton>
+	</NotAuthorized>
+</AuthorizeView>

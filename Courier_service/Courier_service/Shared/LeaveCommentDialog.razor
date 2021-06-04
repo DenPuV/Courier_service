@@ -1,0 +1,48 @@
+﻿@using Courier_service.Models
+
+@inject ISnackbar Snackbar
+
+<MudDialog>
+	<TitleContent>
+		<MudText Typo="Typo.h4">
+			Комментарий
+		</MudText>
+	</TitleContent>
+	<DialogContent>
+		<MudTextField Lines="10" Placeholder="Ваш комментарий" Required="true" @bind-Value="@comment" />
+	</DialogContent>
+	<DialogActions>
+		<MudButton OnClick="Cancel">Отмена</MudButton>
+		<MudButton Color="Color.Primary" OnClick="Submit">Сохранить</MudButton>
+	</DialogActions>
+</MudDialog>
+
+@code {
+	[CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+	[Parameter] public int orderId { get; set; }
+	[Parameter] public DatabaseService databaseService { get; set; }
+
+	string comment { get; set; } = "";
+
+	void Submit()
+	{
+		if (comment != "")
+		{
+			try
+			{
+				databaseService.AddComment(comment, orderId);
+				Snackbar.Add("Комментарий сохранен!", Severity.Success);
+				MudDialog.Close(DialogResult.Ok(true));
+			}
+			catch
+			{
+				Snackbar.Add("Что-то пошло не так!", Severity.Error);
+				Cancel();
+			}
+		}
+		else Snackbar.Add("Комментарий пустой!", Severity.Warning);
+	}
+
+	void Cancel() => MudDialog.Cancel();
+}
